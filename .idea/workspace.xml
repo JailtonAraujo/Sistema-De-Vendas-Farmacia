@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aea35abb-8c7e-49f0-a2c4-bb49ac9d7292" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sistemafarmacia.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/projeto/sistemafarmacia/LoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/projeto/sistemafarmacia/MainApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/GitHub.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconBDconectado.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconBDerror.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconCliente.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconFornecedor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconProduto.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconRelatorios.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconSair.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/IconVenda.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_Fornecedor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_Frame_Main.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_Login_Password.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_Moviemntação_FInanceira.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_Person.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_Relatorio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_User_Login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_User_Main.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_User_Menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_Vendas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_fechar_Caixa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_information.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_pay.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Icon_product.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/Logo_reporter.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/ajuda.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/box.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/dberror.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/getting-started_about_license_gnu-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/icon_compra.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/icon_movimen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/icon_produto.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/intsgram.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/lonkdin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/oie_Vw0pfxPsQfjm.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/sobew.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/sobre.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Img/whatsaap (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/Styles/LoginStyles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/projeto/sistemafarmacia/fxml/ViewLogin.fxml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="21vsaCZ1gtN6g7FDVlrucePhQ9u" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aea35abb-8c7e-49f0-a2c4-bb49ac9d7292" name="Changes" comment="" />
+      <created>1638832960504</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638832960504</updated>
+    </task>
+    <servers />
+  </component>
+</project>
