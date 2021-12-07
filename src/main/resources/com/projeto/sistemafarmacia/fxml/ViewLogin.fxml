@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="449.0" stylesheets="@../styles/LoginStyles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.LoginController">
+   <children>
+      <ImageView fitHeight="135.0" fitWidth="180.0" layoutX="157.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Icon_User_Main.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="TextUserName" alignment="CENTER" focusColor="#00d0bc" layoutX="70.0" layoutY="220.0" prefHeight="25.0" prefWidth="309.0" promptText="UserName" unFocusColor="#0a0a0a">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="TextPassWord" alignment="CENTER" focusColor="#00d0bc" layoutX="70.0" layoutY="326.0" prefHeight="25.0" prefWidth="309.0" promptText="PassWord" unFocusColor="BLACK" />
+      <JFXButton fx:id="BtnEntrar" buttonType="RAISED" layoutX="97.0" layoutY="434.0" onAction="#Entrar" prefHeight="40.0" prefWidth="256.0" ripplerFill="#0a0100" text="ENTRAR" textFill="#fffafa" />
+   </children>
+</AnchorPane>
