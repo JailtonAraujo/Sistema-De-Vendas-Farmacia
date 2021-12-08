@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="sistemafarmacia">
+	<class>com.projeto.sistemafarmacia.model.Pessoa</class>
+	<class>com.projeto.sistemafarmacia.model.Contato</class>
+	<class>com.projeto.sistemafarmacia.model.Endereco</class>
+
+		<properties>
+			<property name="hibernate.connection.driver_class"
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="hibernate.connection.url"
+				value="jdbc:mysql://localhost:3306/sys?useTimezone=true&amp;serverTimezone=UTC" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.connection.username" value="bd_sisfarmacia" />
+			<property name="hibernate.connection.password" value="" />
+			<property name="hibernate.format_sql" value="true" />
+
+
+			<property name="hibernate.hbm2ddl.auto" value="update"></property>
+			<property name="hibernate.show_sql" value="true" />
+
+		</properties>
+
+	</persistence-unit>
+</persistence>
