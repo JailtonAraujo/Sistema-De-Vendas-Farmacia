@@ -19,7 +19,7 @@ public class EntryPoint extends Application {
         scene.getStylesheets().add("/styles/StylesLogin.css");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/Img/Icon_User_Menu.png")));
         stage.setResizable(false);
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("LOGIN!");
         stage.setScene(scene);
         stage.show();
     }
