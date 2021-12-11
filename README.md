@@ -9,6 +9,7 @@ Banco de Dados Mysql,
 Gerenciador De Dependêcnias Maven
 
 Equipe Dev:
-Jailton De Araujo Santos
+Jailton De Araujo Santos,
+nome completo
 
 
