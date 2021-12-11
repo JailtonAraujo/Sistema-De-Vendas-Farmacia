@@ -6,10 +6,9 @@ Tecnologias:
 Linguagem Java,
 JavaFX,
 Banco de Dados Mysql,
-Gerenciador De Dependêcnias Maven
+Maven
 
 Equipe Dev:
-Jailton De Araujo Santos,
-nome completo
+Jailton De Araujo Santos
 
 
