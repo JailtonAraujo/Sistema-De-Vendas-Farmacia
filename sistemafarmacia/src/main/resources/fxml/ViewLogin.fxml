@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="TextPassWord" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="455.0" stylesheets="@../styles/StylesLogin.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="455.0" stylesheets="@../styles/StylesLogin.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.LoginController">
    <children>
       <ImageView fitHeight="131.0" fitWidth="130.0" layoutX="163.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Img/Icon_User_Main.png" />
          </image>
       </ImageView>
-      <JFXPasswordField alignment="CENTER" focusColor="#1c708c" layoutX="86.0" layoutY="367.0" prefHeight="25.0" prefWidth="293.0" promptText="PassWord">
+      <JFXPasswordField fx:id="TextPassWord" alignment="CENTER" focusColor="#1c708c" layoutX="86.0" layoutY="367.0" prefHeight="25.0" prefWidth="293.0" promptText="PassWord">
          <font>
             <Font name="System Italic" size="14.0" />
          </font></JFXPasswordField>
@@ -24,7 +24,7 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXButton fx:id="BtnEntrar" buttonType="RAISED" layoutX="98.0" layoutY="480.0" prefHeight="43.0" prefWidth="270.0" text="ENTRAR" textFill="#ebe6e6">
+      <JFXButton fx:id="BtnEntrar" buttonType="RAISED" layoutX="98.0" layoutY="480.0" onAction="#Entrar" prefHeight="43.0" prefWidth="270.0" text="ENTRAR" textFill="#ebe6e6">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

@@ -9,7 +9,7 @@ import com.projeto.sistemafarmacia.model.Usuario;
 
 public class GenericDAO <E>{
 
-	public void Salvar(Usuario entidade) {
+	public void Salvar(E entidade) {
 		
 		try {
 		
@@ -27,6 +27,36 @@ public class GenericDAO <E>{
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public Usuario Logar(Usuario usuario) {
+		
+		try {
+		Usuario logado = new Usuario();
+		
+		Object [] ResultSet = new Object[] {};
+		
+		EntityManager entityManager = HibernateUtil.getEntityManager();
+		EntityTransaction transition = entityManager.getTransaction();
+		
+		transition.begin();
+		
+		ResultSet = (Object[]) entityManager.createNativeQuery("SELECT UserName, PassWord FROM "+Usuario.class.getSimpleName().toLowerCase()+" WHERE UserName = '"+usuario.getUserName()+"' AND PassWord = '"+usuario.getPassWord()+"' ").getSingleResult();
+		
+		logado.setUserName((String) ResultSet[0]);
+		logado.setPassWord((String) ResultSet[1]);
+		
+		transition.commit();
+		
+		entityManager.close();
+		
+		return logado;
+		
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	
