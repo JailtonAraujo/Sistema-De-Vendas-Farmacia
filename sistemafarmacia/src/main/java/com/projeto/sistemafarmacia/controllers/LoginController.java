@@ -1,5 +1,6 @@
 package com.projeto.sistemafarmacia.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -12,12 +13,19 @@ import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
 import com.projeto.sistemafarmacia.dao.GenericDAO;
 import com.projeto.sistemafarmacia.model.Usuario;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
+public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 
 	private GenericDAO<Usuario> DAO = new GenericDAO<Usuario>();
 	
@@ -31,7 +39,7 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 	private JFXTextField TextUserName;
 	
 	 @FXML
-	    void Entrar(ActionEvent event) {
+	    void Entrar(ActionEvent event) throws IOException {
 		 	this.Logar();
 	    }
 
@@ -54,7 +62,7 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 		return usuario;
 	}
 	
-	public void Logar() {
+	public void Logar() throws IOException {
 		Usuario usuario = this.ObterModelo();
 		
 		if((usuario.getUserName() == null || usuario.getUserName().length() <= 0) || (usuario.getPassWord() == null || usuario.getPassWord().length() <= 0)) {
@@ -68,12 +76,27 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 			}else {
 				if(usuario.equals(logado)) {
 					JOptionPane.showMessageDialog(null, "BEM VINDO "+logado.getUserName().toUpperCase());
+				    
+					Parent root = FXMLLoader.load(getClass().getResource("/fxml/ViewPrincipal.fxml"));
+					Stage stage = new Stage();
+					stage.setScene(new Scene(root));
+					stage.setTitle("TELA PRINCIPAL");
+					stage.setMaximized(true);
+					stage.setResizable(true);
+					stage.initModality(Modality.APPLICATION_MODAL);
+					stage.show();
+					
 					/*CHAMADA DA TELA PRINCIPAL*/
 				}
 			}
 		}
 		
 	}
+
+
+	
+
+
 
 	
 }

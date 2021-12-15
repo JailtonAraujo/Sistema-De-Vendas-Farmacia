@@ -18,20 +18,15 @@ public class HibernateTest {
 		Usuario usuario = new Usuario();
 		
 		usuario.setNome("Jailtvcon de Araujgfo Santos");
-		usuario.setUserName("Lego");
-		usuario.setPassWord("74g1");
+		usuario.setUserName("jailton");
+		usuario.setPassWord("123");
 		
-		//Contato contato = new Contato();
+		Contato contato = new Contato();
+		contato.setEmail("jailton#hjdfsd");
+		contato.setTelefone("fdsf");
+		contato.setPessoa(usuario);
 		
-		//contato.setEmail("jainjkfdd");
-		//contato.setTelefone("5456465");
-		//contato.setPessoa(usuario);
-		
-		//List<Contato> conta = new ArrayList<Contato>();
-		
-		//conta.add(contato);
-		
-		//usuario.setContatos(conta);
+		usuario.setContato(contato);
 		
 		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
 		

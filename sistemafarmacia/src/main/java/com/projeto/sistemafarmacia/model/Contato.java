@@ -9,14 +9,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.ManyToAny;
 
-
+@Entity
 public class Contato {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	private String Telefone;
 	private String Email;
 	
+	
+	@OneToOne
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@JoinColumn(name = "Pessoa_fk")
+	private Pessoa pessoa;
+	
+	
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
 
 
 	public int getID() {
