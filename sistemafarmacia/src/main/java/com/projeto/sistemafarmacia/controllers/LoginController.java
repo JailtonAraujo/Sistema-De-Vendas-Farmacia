@@ -87,6 +87,8 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 					stage.show();
 					
 					/*CHAMADA DA TELA PRINCIPAL*/
+				}else {
+					JOptionPane.showMessageDialog(null, "PASSWORD OU SENHA INCORRETO!");
 				}
 			}
 		}

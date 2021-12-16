@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../styles/StylePrincipal.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -16,23 +19,49 @@
          <children>
             <MenuBar id="bar-menu">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="CLIENTES">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem mnemonicParsing="false" text="CADASTRAR" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="PRODUTOS">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" text="CADASTRAR" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="VENDAS">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" text="LANÇAMENOS DE VENDA" />
+                        <MenuItem mnemonicParsing="false" text="HISTORICO" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="SOBRE">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="INFORMAÇÕES DO SOFTWARE" />
+                     </items>
+                  </Menu>
               </menus>
             </MenuBar>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="473.0" layoutY="664.0" prefHeight="122.0" prefWidth="329.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label layoutX="10.0" layoutY="50.0" prefHeight="32.0" prefWidth="98.0" style="-fx-border-color: #000000; -fx-border-width: 3; -fx-border-radius: 5;" text="USUARIO:" textFill="#e40505">
+               <HBox.margin>
+                  <Insets top="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="UsuarioLabe" prefHeight="32.0" prefWidth="278.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-border-width: 3;" textFill="#f20404">
+               <HBox.margin>
+                  <Insets left="10.0" top="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
    </children>

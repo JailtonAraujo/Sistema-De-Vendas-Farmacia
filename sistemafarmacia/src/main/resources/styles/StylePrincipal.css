@@ -4,7 +4,7 @@
 }
 
 .menu-bar{
-	-fx-background-color: #ffff;
+	-fx-background-color: #008B8B;
 	-fx-background-radius: 30px;
 	-fx-alignment: center;
 	-fx-font-size: 20px;
@@ -14,9 +14,27 @@
 	-fx-font-size: 15pt;
 }
 
+.menu:hover{
+	-fx-background-color: #778899;
+}
+
 .menu:showing{
-	-fx-background-radius: 15px;
+	-fx-background-radius: 20px;
 	-fx-background-color: #000000;
 	-fx-font-weight: bold;
+}
+
+
+.menu-item{
+	-fx-background-color: #A9A9A9;
+	-fx-color: #fff;
+	-fx-background-radius: 20px;
+	-fx-border-color: #000000;
+	-fx-border-radius: 20px;
+	-fx-border-width: 3px;
 	
+}
+
+.menu-item:hover{
+	-fx-background-color: #000000;
 }

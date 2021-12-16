@@ -9,6 +9,8 @@ import com.projeto.sistemafarmacia.model.Usuario;
 
 public class GenericDAO <E>{
 
+	private EntityManager entityManager = HibernateUtil.getEntityManager();/*ABRINDO CONEXÃO NA INICIALIZAÇÃO DO SISTEMA PARA GANHAR DESEMPENHO NA MANUZEIO*/
+	
 	public void Salvar(E entidade) {
 		
 		try {
@@ -32,12 +34,12 @@ public class GenericDAO <E>{
 	public Usuario Logar(Usuario usuario) {
 		
 		try {
+		EntityManager entityManager = HibernateUtil.getEntityManager();
+		EntityTransaction transition = entityManager.getTransaction();
+			
 		Usuario logado = new Usuario();
 		
 		Object [] ResultSet = new Object[] {};
-		
-		EntityManager entityManager = HibernateUtil.getEntityManager();
-		EntityTransaction transition = entityManager.getTransaction();
 		
 		transition.begin();
 		
