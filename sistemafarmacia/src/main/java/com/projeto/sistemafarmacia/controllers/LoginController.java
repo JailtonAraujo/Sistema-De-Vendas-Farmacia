@@ -77,6 +77,9 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 				if(usuario.equals(logado)) {
 					JOptionPane.showMessageDialog(null, "BEM VINDO "+logado.getUserName().toUpperCase());
 				    
+					Stage stage1 = (Stage) BtnEntrar.getScene().getWindow();
+					stage1.close();
+					
 					Parent root = FXMLLoader.load(getClass().getResource("/fxml/ViewPrincipal.fxml"));
 					Stage stage = new Stage();
 					stage.setScene(new Scene(root));
@@ -85,6 +88,7 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 					stage.setResizable(true);
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.show();
+					
 					
 					/*CHAMADA DA TELA PRINCIPAL*/
 				}else {

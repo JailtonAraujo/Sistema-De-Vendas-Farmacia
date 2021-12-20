@@ -18,8 +18,8 @@ public class HibernateTest {
 		Usuario usuario = new Usuario();
 		
 		usuario.setNome("Jailtvcon de Araujgfo Santos");
-		usuario.setUserName("jailton");
-		usuario.setPassWord("123");
+		usuario.setUserName("carlos");
+		usuario.setPassWord("456");
 		
 		Contato contato = new Contato();
 		contato.setEmail("jailton#hjdfsd");
