@@ -3,9 +3,13 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="455.0" stylesheets="@../styles/StylesLogin.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.LoginController">
@@ -29,5 +33,31 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
+      <ImageView fitHeight="119.0" fitWidth="102.0" layoutX="347.0" layoutY="537.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Img/euclidesdacunha.png" />
+         </image>
+      </ImageView>
+      <Label id="lbl_title" alignment="CENTER" layoutX="117.0" layoutY="175.0" prefHeight="37.0" prefWidth="232.0" text="SYS FARMACIA">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startY="0.023696682464455">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.46052631735801697" green="0.24092349410057068" blue="0.24092349410057068" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.17580409348011017" green="0.5131579041481018" blue="0.32761329412460327" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>
