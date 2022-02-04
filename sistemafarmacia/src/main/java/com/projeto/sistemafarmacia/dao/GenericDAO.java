@@ -8,8 +8,14 @@ import com.projeto.sistemafarmacia.HibernateUtil;
 import com.projeto.sistemafarmacia.model.Usuario;
 
 public class GenericDAO <E>{
+	
+	private EntityManager entityManager = null;
+	
+	public GenericDAO() {
+		this.entityManager = HibernateUtil.getEntityManager();
+	}
 
-	private EntityManager entityManager = HibernateUtil.getEntityManager();/*ABRINDO CONEXÃO NA INICIALIZAÇÃO DO SISTEMA PARA GANHAR DESEMPENHO NA MANUZEIO*/
+	//private EntityManager entityManager = HibernateUtil.getEntityManager();/*ABRINDO CONEXÃO NA INICIALIZAÇÃO DO SISTEMA PARA GANHAR DESEMPENHO NA MANUZEIO*/
 	
 	public void Salvar(E entidade) {
 		

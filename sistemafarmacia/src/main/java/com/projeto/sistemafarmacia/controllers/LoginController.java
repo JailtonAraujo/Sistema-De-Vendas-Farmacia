@@ -85,7 +85,7 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 					stage.setScene(new Scene(root));
 					stage.setTitle("TELA PRINCIPAL");
 					stage.setMaximized(true);
-					stage.setResizable(true);
+					stage.setResizable(false);
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.show();
 					
@@ -96,6 +96,13 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 				}
 			}
 		}
+		
+	}
+
+
+	@Override
+	public void ShowView(String Resource, String Title) {
+		// TODO Auto-generated method stub
 		
 	}
 

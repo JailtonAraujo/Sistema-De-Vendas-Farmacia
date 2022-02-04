@@ -7,6 +7,7 @@
 	<class>com.projeto.sistemafarmacia.model.Pessoa</class>
 	<class>com.projeto.sistemafarmacia.model.Usuario</class>
 	<class>com.projeto.sistemafarmacia.model.Contato</class>
+	<class>com.projeto.sistemafarmacia.model.Cliente</class>
 	
 		<properties>
 			<property name="hibernate.connection.driver_class"

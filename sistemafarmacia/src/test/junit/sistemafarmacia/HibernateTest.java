@@ -56,6 +56,15 @@ public class HibernateTest {
 	
 	@Test
 	public void testSimple() {
-		System.out.println(Usuario.class.getSimpleName().toLowerCase());
+		try {
+		
+		Usuario usu = null;
+	
+		usu.setNome("jailton");
+		
+		System.out.println(usu);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

@@ -6,7 +6,7 @@ public interface InterfaceCRUD <E> {
 
 	public E ObterModelo();
 	
-	//public void ShowView(String Resource, String Title, Image icon);
+	public void ShowView(String Resource, String Title);
 	
 	//public void CloseView(String Resource);
 	
