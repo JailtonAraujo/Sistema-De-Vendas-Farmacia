@@ -1,0 +1,23 @@
+
+.root{
+	
+	
+}
+
+#btn-opc{
+	-fx-border-radius: 10px;
+	/*-fx-text-fill: red;*/
+	-fx-cursor: pointer;
+	
+}
+
+#btn-opc:hover{
+	-fx-background-color: #333333;
+	-fx-text-fill: #fff;
+	-fx-background-radius: 10px;
+	-fx-cursor: pointer;
+}
+
+#back-page{
+	-fx-background-color: linear-gradient(to right, #00e89c, #00cbc3, #00abee);
+}
