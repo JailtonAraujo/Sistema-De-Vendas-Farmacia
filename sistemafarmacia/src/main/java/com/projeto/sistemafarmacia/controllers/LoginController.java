@@ -25,28 +25,27 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
+public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 
 	private GenericDAO<Usuario> DAO = new GenericDAO<Usuario>();
-	
+
 	@FXML
 	private JFXButton BtnEntrar;
 
 	@FXML
-	 private JFXPasswordField TextPassWord;
+	private JFXPasswordField TextPassWord;
 
 	@FXML
 	private JFXTextField TextUserName;
-	
-	 @FXML
-	    void Entrar(ActionEvent event) throws IOException {
-		 	this.Logar();
-	    }
 
+	@FXML
+	void Entrar(ActionEvent event) throws IOException {
+		this.Logar();
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-	
+
 		// TODO
 	}
 
@@ -54,32 +53,33 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 	public Usuario ObterModelo() {
 		String UserName = TextUserName.getText();
 		String PassWord = TextPassWord.getText();
-		
+
 		Usuario usuario = new Usuario();
 		usuario.setUserName(UserName);
 		usuario.setPassWord(PassWord);
-		
+
 		return usuario;
 	}
-	
+
 	public void Logar() throws IOException {
 		Usuario usuario = this.ObterModelo();
-		
-		if((usuario.getUserName() == null || usuario.getUserName().length() <= 0) || (usuario.getPassWord() == null || usuario.getPassWord().length() <= 0)) {
+
+		if ((usuario.getUserName() == null || usuario.getUserName().length() <= 0)
+				|| (usuario.getPassWord() == null || usuario.getPassWord().length() <= 0)) {
 			JOptionPane.showMessageDialog(null, "OS CAMPOS NÃO FORAM PREENCHIDOS CORRETAMENTE!");
-			//this.LimparCampos
-		}else {
+			// this.LimparCampos
+		} else {
 			Usuario logado = DAO.Logar(usuario);
-			
-			if(logado == null) {
+
+			if (logado == null) {
 				JOptionPane.showMessageDialog(null, "NENHUM USUARIO COM ESSE LOGIN E SENHA FOI ENCONTRADO!");
-			}else {
-				if(usuario.equals(logado)) {
-					JOptionPane.showMessageDialog(null, "BEM VINDO "+logado.getUserName().toUpperCase());
-				    
+			} else {
+				if (usuario.equals(logado)) {
+					JOptionPane.showMessageDialog(null, "BEM VINDO " + logado.getUserName().toUpperCase());
+
 					Stage stage1 = (Stage) BtnEntrar.getScene().getWindow();
 					stage1.close();
-					
+
 					Parent root = FXMLLoader.load(getClass().getResource("/fxml/ViewPrincipal.fxml"));
 					Stage stage = new Stage();
 					stage.setScene(new Scene(root));
@@ -88,28 +88,26 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario>{
 					stage.setResizable(false);
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.show();
-					
-					
-					/*CHAMADA DA TELA PRINCIPAL*/
-				}else {
+
+					/* CHAMADA DA TELA PRINCIPAL */
+				} else {
 					JOptionPane.showMessageDialog(null, "PASSWORD OU SENHA INCORRETO!");
 				}
 			}
 		}
-		
-	}
 
+	}
 
 	@Override
-	public void ShowView(String Resource, String Title) {
+	public void ShowView(String Resource, String Title, String msg) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	@Override
+	public void LimparCampos() {
+		// TODO Auto-generated method stub
 
-	
+	}
 
-
-
-	
 }

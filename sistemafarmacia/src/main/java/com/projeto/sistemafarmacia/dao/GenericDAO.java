@@ -1,15 +1,24 @@
 package com.projeto.sistemafarmacia.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.transaction.Transaction;
 
+import org.hibernate.Query;
+import org.hibernate.jpa.criteria.expression.function.LengthFunction;
+
 import com.projeto.sistemafarmacia.HibernateUtil;
+import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Usuario;
 
 public class GenericDAO <E>{
 	
 	private EntityManager entityManager = null;
+	private EntityTransaction transaction = null;
+	private static String UsuarioLogin = null;
 	
 	public GenericDAO() {
 		this.entityManager = HibernateUtil.getEntityManager();
@@ -17,7 +26,7 @@ public class GenericDAO <E>{
 
 	//private EntityManager entityManager = HibernateUtil.getEntityManager();/*ABRINDO CONEXÃO NA INICIALIZAÇÃO DO SISTEMA PARA GANHAR DESEMPENHO NA MANUZEIO*/
 	
-	public void Salvar(E entidade) {
+	public boolean Salvar(E entidade) {
 		
 		try {
 		
@@ -32,8 +41,11 @@ public class GenericDAO <E>{
 		
 		entityManager.close();
 		
+		return true;
+		
 		} catch(Exception e){
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -54,6 +66,8 @@ public class GenericDAO <E>{
 		logado.setUserName((String) ResultSet[0]);
 		logado.setPassWord((String) ResultSet[1]);
 		
+		this.UsuarioLogin = logado.getUserName();
+		
 		transition.commit();
 		
 		entityManager.close();
@@ -65,6 +79,67 @@ public class GenericDAO <E>{
 			return null;
 		}
 		
+	}
+	
+	public void Deletar(E entidade, int id) {
+		
+		try {
+			
+			this.entityManager = HibernateUtil.getEntityManager();
+			this.transaction = entityManager.getTransaction();
+			
+			transaction.begin();
+			
+			
+			entityManager.createNativeQuery("delete from "+entidade.getClass().getSimpleName().toLowerCase()+" where ID = "+id+"").executeUpdate();
+			
+			entityManager.createNativeQuery("delete from contato where Pessoa_fk = "+id+"").executeUpdate();
+			
+			transaction.commit();
+			
+			entityManager.close();
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			
+			try {
+				transaction.rollback();
+			}catch(Exception e) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	public List<E> buscarUsuario (Class<E> entidade, String busca){
+		
+		try {
+			
+			this.entityManager = HibernateUtil.getEntityManager();
+			this.transaction = entityManager.getTransaction();
+			
+			Cliente cliente = new Cliente();
+			
+			transaction.begin();
+			
+			System.out.println(entidade.getName());
+			
+			List<E> lista = (List<E>) entityManager.createQuery("from "+entidade.getSimpleName()+"").getSingleResult();
+			
+			transaction.commit();
+			
+			entityManager.close();
+			
+			return  lista;
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public String getUsuarioLogin() {
+		return this.UsuarioLogin;
 	}
 	
 	

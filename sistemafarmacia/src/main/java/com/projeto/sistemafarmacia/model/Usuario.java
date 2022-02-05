@@ -3,6 +3,7 @@ package com.projeto.sistemafarmacia.model;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 public class Usuario extends Pessoa {

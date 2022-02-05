@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import org.junit.Test;
 
 import com.projeto.sistemafarmacia.dao.GenericDAO;
+import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Contato;
 import com.projeto.sistemafarmacia.model.Usuario;
 
@@ -15,20 +16,18 @@ public class HibernateTest {
 
 	@Test
 	public void testSalvar() {
-		Usuario usuario = new Usuario();
+		Cliente usuario = new Cliente();
 		
-		usuario.setNome("Jailtvcon de Araujgfo Santos");
-		usuario.setUserName("carlos");
-		usuario.setPassWord("456");
-		
+		usuario.setNome("Jailftvcon ");
+		usuario.setCpf("45455f654");
 		Contato contato = new Contato();
-		contato.setEmail("jailton#hjdfsd");
-		contato.setTelefone("fdsf");
+		contato.setEmail("jaisdfsdtfsdfson#hjdfsd");
+		contato.setTelefone("fdsdfsdffdfsf");
 		contato.setPessoa(usuario);
 		
 		usuario.setContato(contato);
 		
-		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
+		GenericDAO<Cliente> dao = new GenericDAO<Cliente>();
 		
 		dao.Salvar(usuario);
 		
@@ -51,6 +50,35 @@ public class HibernateTest {
 		}else {
 			JOptionPane.showMessageDialog(null, "INFORMAÇÕES DE LOGIN INCORRETAS!");
 		}
+		
+	}
+	
+	
+	@Test
+	public void TestDeletar() {
+		Cliente cliente = new Cliente();
+		cliente.setID(32);
+		
+		Contato contato = new Contato();
+		contato.setPessoa(cliente);
+		
+		GenericDAO<Cliente> genericDAO = new GenericDAO<Cliente>();
+		
+		genericDAO.Deletar(cliente, cliente.getID());
+		
+		
+	}
+	
+	@Test
+	public void testBuscar() {
+		GenericDAO<Cliente> genericDAO = new GenericDAO<Cliente>();
+		
+		List<Cliente> lista = genericDAO.buscarUsuario(Cliente.class, "j");
+		
+		for (Cliente cliente : lista) {
+			System.out.println(cliente);
+		}
+		
 		
 	}
 	

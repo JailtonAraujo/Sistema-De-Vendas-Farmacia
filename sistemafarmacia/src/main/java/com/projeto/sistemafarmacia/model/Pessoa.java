@@ -29,8 +29,22 @@ public abstract class Pessoa {
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private Contato contato;
 	
+	public Pessoa() {}
 	
 	
+	
+	public Pessoa(int iD, String nome, Contato contato) {
+		ID = iD;
+		Nome = nome;
+		this.contato = contato;
+	}
+
+	public Pessoa(int iD, String nome) {
+		ID = iD;
+		Nome = nome;
+	}
+
+
 	public Contato getContato() {
 		return contato;
 	}

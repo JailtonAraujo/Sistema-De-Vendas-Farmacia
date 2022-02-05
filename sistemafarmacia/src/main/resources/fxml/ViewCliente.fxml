@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1163.0" stylesheets="@../styles/StyleUsuario.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.ClienteController">
    <children>
       <AnchorPane layoutY="91.0" prefHeight="228.0" prefWidth="1163.0" style="-fx-background-color: #D3D3D3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
@@ -63,7 +62,7 @@
       </AnchorPane>
       <HBox id="back-page" alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="91.0" prefWidth="1161.0" stylesheets="@../styles/StyleUsuario.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label text="USUÁRIO">
+            <Label text="CLIENTE">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -72,7 +71,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="440.0" layoutY="319.0" prefHeight="78.0" prefWidth="1163.0" style="-fx-background-color: #A9A9A9;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <JFXButton id="btn-opc" fx:id="btnSalvar" buttonType="RAISED" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #00FA9A; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="SALVAR">
+            <JFXButton id="btn-opc" fx:id="btnSalvar" buttonType="RAISED" onAction="#eventSalvar" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #00FA9A; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="SALVAR">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -95,6 +94,14 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+            </JFXButton>
+            <JFXButton id="btn-opc" fx:id="btnEditar1" buttonType="RAISED" onAction="#eventLimpar" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #6495ED; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="LIMPAR">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
             </JFXButton>
          </children>
       </HBox>
