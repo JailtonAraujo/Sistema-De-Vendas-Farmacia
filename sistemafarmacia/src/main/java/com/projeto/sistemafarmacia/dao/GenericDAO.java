@@ -1,14 +1,9 @@
 package com.projeto.sistemafarmacia.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.transaction.Transaction;
-
-import org.hibernate.Query;
-import org.hibernate.jpa.criteria.expression.function.LengthFunction;
 
 import com.projeto.sistemafarmacia.HibernateUtil;
 import com.projeto.sistemafarmacia.model.Cliente;
@@ -123,7 +118,7 @@ public class GenericDAO <E>{
 			
 			System.out.println(entidade.getName());
 			
-			List<E> lista = (List<E>) entityManager.createQuery("from "+entidade.getSimpleName()+"").getSingleResult();
+			List<E> lista =  entityManager.createQuery("from "+entidade.getSimpleName()+"").getResultList();
 			
 			transaction.commit();
 			

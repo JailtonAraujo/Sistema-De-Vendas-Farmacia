@@ -10,7 +10,6 @@ public class Usuario extends Pessoa {
 
 	private String UserName;
 	private String PassWord;
-
 	/*
 	 * public Usuario(int ID, String Nome, Contato contato, String userName, String
 	 * passWord) { super(ID, Nome, contato); UserName = userName; PassWord =
@@ -40,6 +39,8 @@ public class Usuario extends Pessoa {
 				+ super.toString() + "]";
 	}
 
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(PassWord, UserName);

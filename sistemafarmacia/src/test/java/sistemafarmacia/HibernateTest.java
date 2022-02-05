@@ -16,10 +16,12 @@ public class HibernateTest {
 
 	@Test
 	public void testSalvar() {
-		Cliente usuario = new Cliente();
+		Usuario usuario = new Usuario();
 		
 		usuario.setNome("Jailftvcon ");
-		usuario.setCpf("45455f654");
+		///usuario.setCpf("45455f654");
+		usuario.setPassWord("fsdfsd");
+		usuario.setUserName("fdfd");
 		Contato contato = new Contato();
 		contato.setEmail("jaisdfsdtfsdfson#hjdfsd");
 		contato.setTelefone("fdsdfsdffdfsf");
@@ -27,7 +29,7 @@ public class HibernateTest {
 		
 		usuario.setContato(contato);
 		
-		GenericDAO<Cliente> dao = new GenericDAO<Cliente>();
+		GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
 		
 		dao.Salvar(usuario);
 		
@@ -75,9 +77,10 @@ public class HibernateTest {
 		
 		List<Cliente> lista = genericDAO.buscarUsuario(Cliente.class, "j");
 		
-		for (Cliente cliente : lista) {
-			System.out.println(cliente);
+		for (Cliente usuario : lista) {
+			System.out.println(usuario);
 		}
+		
 		
 		
 	}

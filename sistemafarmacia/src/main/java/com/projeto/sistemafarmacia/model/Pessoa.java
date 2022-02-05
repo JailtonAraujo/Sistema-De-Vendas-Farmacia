@@ -76,6 +76,13 @@ public abstract class Pessoa {
 
 
 
+	@Override
+	public String toString() {
+		return "Pessoa [ID=" + ID + ", Nome=" + Nome + ", contato=" + contato + "]";
+	}
+
+
+
 
 	
 	
