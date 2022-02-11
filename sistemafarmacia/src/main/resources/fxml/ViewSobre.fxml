@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="789.0" stylesheets="@../styles/StyleSobre.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.SobreController">
+   <children>
+      <HBox id="header" alignment="CENTER" layoutX="284.0" layoutY="6.0" prefHeight="61.0" prefWidth="789.0" stylesheets="@../styles/StyleSobre.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="349.0" text="INFORMAÇÕES DO SOFTWARE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <Label layoutX="14.0" layoutY="91.0" prefHeight="35.0" prefWidth="333.0" text="Equipe de desenvolvimento:">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="144.0" prefHeight="17.0" prefWidth="194.0" text="Rudney Silva">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="183.0" prefHeight="17.0" prefWidth="194.0" text="Jailton Santos">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="225.0" prefHeight="17.0" prefWidth="194.0" text="Cleusa Canario">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="268.0" prefHeight="17.0" prefWidth="194.0" text="Alonso Santos">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="314.0" prefHeight="17.0" prefWidth="194.0" text="Vanessa Cesar">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnClose" layoutX="713.0" layoutY="69.0" onAction="#eventFClose" prefHeight="25.0" prefWidth="48.0" style="-fx-background-color: red;" text="X">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
