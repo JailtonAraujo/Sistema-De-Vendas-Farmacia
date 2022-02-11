@@ -67,9 +67,6 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 
 		Cliente cliente = this.ObterModelo();
 
-		if (this.genericDAO.ValidarEntidade(Cliente.class, cliente.getCpf())) {
-			JOptionPane.showMessageDialog(null, "Já Existe Um Usuario de Mesmo cpf Cadastrado!", "ERROR!", 0);
-		} else {
 
 			if (this.genericDAO.Salvar(cliente)) {
 
@@ -80,7 +77,7 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 			}
 		}
 
-	}
+	
 
 	@FXML
 	void eventLimpar(ActionEvent event) {

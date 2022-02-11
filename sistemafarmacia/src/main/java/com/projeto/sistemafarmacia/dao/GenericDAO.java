@@ -131,22 +131,6 @@ public class GenericDAO <E>{
 		
 	}
 	
-	public boolean ValidarEntidade(Class<E> entidade, String parametro) {
-		this.entityManager = HibernateUtil.getEntityManager();
-		this.transaction = entityManager.getTransaction();
-		
-		transaction.begin();
-		
-		int quant = (int) entityManager.createNativeQuery(" select cont(*) from "+entidade.getClass().getSimpleName().toLowerCase()+" where cfp = "+parametro+"").getSingleResult();
-		
-		if(quant > 0) {
-			return false;
-		}else {
-			return true;}
-		
-		
-	}
-	
 	public String getUsuarioLogin() {
 		return this.UsuarioLogin;
 	}
