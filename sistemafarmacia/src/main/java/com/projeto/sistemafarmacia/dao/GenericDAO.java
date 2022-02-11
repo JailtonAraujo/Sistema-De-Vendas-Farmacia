@@ -112,13 +112,11 @@ public class GenericDAO <E>{
 			this.entityManager = HibernateUtil.getEntityManager();
 			this.transaction = entityManager.getTransaction();
 			
-			Cliente cliente = new Cliente();
-			
 			transaction.begin();
 			
 			System.out.println(entidade.getName());
 			
-			List<E> lista =  entityManager.createQuery("from "+entidade.getSimpleName()+"").getResultList();
+			List<E> lista =  entityManager.createQuery("from "+entidade.getSimpleName()+" where Nome like '"+busca+"%'").getResultList();
 			
 			transaction.commit();
 			
@@ -130,6 +128,22 @@ public class GenericDAO <E>{
 			ex.printStackTrace();
 			return null;
 		}
+		
+	}
+	
+	public boolean ValidarEntidade(Class<E> entidade, String parametro) {
+		this.entityManager = HibernateUtil.getEntityManager();
+		this.transaction = entityManager.getTransaction();
+		
+		transaction.begin();
+		
+		int quant = (int) entityManager.createNativeQuery(" select cont(*) from "+entidade.getClass().getSimpleName().toLowerCase()+" where cfp = "+parametro+"").getSingleResult();
+		
+		if(quant > 0) {
+			return false;
+		}else {
+			return true;}
+		
 		
 	}
 	

@@ -85,7 +85,7 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 					stage.setScene(new Scene(root));
 					stage.setTitle("TELA PRINCIPAL");
 					stage.setMaximized(true);
-					stage.setResizable(false);
+					stage.setResizable(true);
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.show();
 

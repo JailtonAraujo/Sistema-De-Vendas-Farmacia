@@ -4,12 +4,11 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -48,7 +47,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtTelefone" focusColor="#0cb5d3" labelFloat="true" layoutX="803.0" layoutY="29.0" prefHeight="25.0" prefWidth="226.0" promptText="TELEFONE:" unFocusColor="BLACK">
+            <JFXTextField fx:id="txtTelefone" focusColor="#0db4d1" labelFloat="true" layoutX="803.0" layoutY="29.0" prefHeight="25.0" prefWidth="226.0" promptText="TELEFONE:" unFocusColor="BLACK">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -78,7 +77,7 @@
             </JFXButton>
             <JFXButton id="btn-opc" fx:id="btnExcluir" buttonType="RAISED" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #DC143C; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="EXCLUIR">
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="20.0" right="110.0" />
                </HBox.margin>
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -87,15 +86,23 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXButton>
-            <JFXButton id="btn-opc" fx:id="btnEditar" buttonType="RAISED" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #00FFFF; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="EDITAR">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
+            <JFXButton id="btn-opc" fx:id="btnSair" buttonType="RAISED" onAction="#eventSair" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #4B0082; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="SAIR">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
             </JFXButton>
             <JFXButton id="btn-opc" fx:id="btnEditar1" buttonType="RAISED" onAction="#eventLimpar" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #6495ED; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="LIMPAR">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="110.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton id="btn-opc" fx:id="btnEditar" buttonType="RAISED" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #00FFFF; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="EDITAR">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -116,19 +123,16 @@
       </TableView>
       <HBox id="back-page" alignment="CENTER" layoutY="395.0" prefHeight="47.0" prefWidth="1163.0" stylesheets="@../styles/StyleUsuario.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <TextField fx:id="txtBusca" alignment="CENTER" prefHeight="35.0" prefWidth="659.0" style="-fx-background-radius: 15;">
+            <TextField fx:id="txtBusca" alignment="CENTER" prefHeight="35.0" prefWidth="659.0" promptText="BUSCAR POR NOME" style="-fx-background-radius: 15;">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </TextField>
-            <ImageView fitHeight="34.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../Img/search.png" />
-               </image>
-            </ImageView>
+            <Button id="btnPesquisar" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" text="BUSCAR">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
    </children>

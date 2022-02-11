@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class PrincipalController implements Initializable, InterfaceCRUD<Usuario>{
 
@@ -37,6 +38,11 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
     @FXML
     void eventCadastrar(ActionEvent event) {
     	this.ShowView("/fxml/ViewCliente.fxml", "Usuário", "");
+    }
+    
+    @FXML
+    void actionSobre(ActionEvent event) {
+    	this.ShowView("/fxml/ViewSobre.fxml", "Sobre", "");
     }
 	
     GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
@@ -61,6 +67,7 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 		stage.setResizable(false);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Img/Icon_User_Menu.png")));
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.show();
 		}catch(Exception ex) {
 			ex.printStackTrace();

@@ -38,7 +38,7 @@
             <Image url="@../Img/euclidesdacunha.png" />
          </image>
       </ImageView>
-      <Label id="lbl_title" alignment="CENTER" layoutX="117.0" layoutY="175.0" prefHeight="37.0" prefWidth="232.0" text="SYS FARMACIA">
+      <Label id="lbl_title" alignment="CENTER" layoutX="117.0" layoutY="175.0" prefHeight="37.0" prefWidth="232.0" text="SYS FARMÁCIA">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

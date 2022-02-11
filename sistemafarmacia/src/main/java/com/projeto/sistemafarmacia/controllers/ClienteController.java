@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
 import com.projeto.sistemafarmacia.dao.GenericDAO;
@@ -21,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javassist.compiler.TypeChecker;
 
 public class ClienteController implements Initializable, InterfaceCRUD<Cliente> {
@@ -49,8 +51,10 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 	@FXML
 	private JFXTextField txtTelefone;
 
+	@FXML
+	private JFXButton btnSair;
+
 	private final GenericDAO<Cliente> genericDAO = new GenericDAO<Cliente>();
-	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -61,20 +65,33 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 	@FXML
 	void eventSalvar(ActionEvent event) {
 
-		if (this.genericDAO.Salvar(this.ObterModelo())) {
-			
-			JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO!");
-			this.LimparCampos();
-		}else {
-			
+		Cliente cliente = this.ObterModelo();
+
+		if (this.genericDAO.ValidarEntidade(Cliente.class, cliente.getCpf())) {
+			JOptionPane.showMessageDialog(null, "Já Existe Um Usuario de Mesmo cpf Cadastrado!", "ERROR!", 0);
+		} else {
+
+			if (this.genericDAO.Salvar(cliente)) {
+
+				JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO!", "SUCESSO!", 1);
+				this.LimparCampos();
+			} else {
+
+			}
 		}
 
 	}
-	
+
 	@FXML
-    void eventLimpar(ActionEvent event) {
+	void eventLimpar(ActionEvent event) {
 		this.LimparCampos();
-    }
+	}
+
+	@FXML
+	void eventSair(ActionEvent event) {
+		Stage stage = (Stage) btnSair.getScene().getWindow();
+		stage.close();
+	}
 
 	@Override
 	public Cliente ObterModelo() {
@@ -91,7 +108,7 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 		String numero = txtNumero.getText();
 		String telefone = txtTelefone.getText();
 		String email = txtEmail.getText();
-		
+
 		if (id == null || id.equalsIgnoreCase("")) {
 			id = "0";
 			cliente = new Cliente(Integer.parseInt(id), nome, cpf);
@@ -101,7 +118,13 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 			contato.setPessoa(cliente);
 			cliente.setContato(contato);
 
-			return cliente;
+			if (this.ValidarCampo(cliente)) {
+				return cliente;
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Os Campos Não Foram Preenchidos Corretamente, Por Favor, Confira-os!", "ERRO!", 0);
+			}
+
 		}
 
 		return null;
@@ -138,6 +161,16 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 			ex.printStackTrace();
 		}
 	}
-	
 
+	public boolean ValidarCampo(Cliente cliente) {
+		if ((cliente.getNome() != null && cliente.getNome().length() > 0)
+				&& (cliente.getCpf() != null && cliente.getCpf().length() > 0 && cliente.getCpf().length() == 12)
+				&& (cliente.getContato().getEmail() != null && cliente.getContato().getEmail().length() > 0)
+				&& (cliente.getContato().getTelefone() != null && cliente.getContato().getTelefone().length() > 0
+						&& cliente.getContato().getTelefone().length() == 11)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

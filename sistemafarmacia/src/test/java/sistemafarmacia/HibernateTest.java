@@ -75,7 +75,7 @@ public class HibernateTest {
 	public void testBuscar() {
 		GenericDAO<Cliente> genericDAO = new GenericDAO<Cliente>();
 		
-		List<Cliente> lista = genericDAO.buscarUsuario(Cliente.class, "j");
+		List<Cliente> lista = genericDAO.buscarUsuario(Cliente.class, "Jail");
 		
 		for (Cliente usuario : lista) {
 			System.out.println(usuario);
