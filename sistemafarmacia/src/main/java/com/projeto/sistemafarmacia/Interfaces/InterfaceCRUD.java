@@ -1,6 +1,5 @@
 package com.projeto.sistemafarmacia.Interfaces;
 
-import javafx.scene.image.Image;
 
 public interface InterfaceCRUD <E> {
 

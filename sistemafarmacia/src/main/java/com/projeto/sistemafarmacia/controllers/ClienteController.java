@@ -22,8 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javassist.compiler.TypeChecker;
 
 public class ClienteController implements Initializable, InterfaceCRUD<Cliente> {
 

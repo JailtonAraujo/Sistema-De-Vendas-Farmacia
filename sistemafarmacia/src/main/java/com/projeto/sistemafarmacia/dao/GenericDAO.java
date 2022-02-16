@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import com.projeto.sistemafarmacia.HibernateUtil;
-import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Usuario;
 
 public class GenericDAO <E>{

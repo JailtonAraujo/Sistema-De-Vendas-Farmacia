@@ -1,3 +1,6 @@
 Manifest-Version: 1.0
+Built-By: Jailton
+Build-Jdk: 11.0.13
 Main-Class: com.projeto.sistemafarmacia.Main
+Created-By: Maven Integration for Eclipse
 

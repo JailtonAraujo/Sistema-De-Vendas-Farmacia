@@ -1,10 +1,6 @@
 package com.projeto.sistemafarmacia.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-
-import org.hibernate.type.descriptor.java.UUIDTypeDescriptor.ToStringTransformer;
 
 @Entity
 public class Cliente extends Pessoa {

@@ -13,15 +13,12 @@ import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
 import com.projeto.sistemafarmacia.dao.GenericDAO;
 import com.projeto.sistemafarmacia.model.Usuario;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
