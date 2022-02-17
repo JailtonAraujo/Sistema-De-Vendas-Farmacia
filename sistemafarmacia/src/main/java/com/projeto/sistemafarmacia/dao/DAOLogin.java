@@ -28,6 +28,8 @@ public class DAOLogin {
 		
 		if(resultSet.next()) {
 			nomeUser = resultSet.getString("nome");
+			connection.commit();
+			statement.close();
 			return true; //Autenticado
 		}else {
 			return false; //Não Autenticado

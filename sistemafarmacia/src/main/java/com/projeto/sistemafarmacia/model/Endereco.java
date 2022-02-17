@@ -7,16 +7,38 @@ public class Endereco {
 	private int ID;
 	private String Logradouro;
 	private String Cidade;
-	private String Numero;
+	private int Numero;
+	private int idPessoa;
 
 	public Endereco() {}
 	
 	
 	
-	public Endereco(String logradouro, String cidade, String numero) {
+	public Endereco(String logradouro, String cidade, int numero) {
 		Logradouro = logradouro;
 		Cidade = cidade;
 		Numero = numero;
+	}
+
+
+	public Endereco(int iD, String logradouro, String cidade, int numero, int idPessoa) {
+		ID = iD;
+		Logradouro = logradouro;
+		Cidade = cidade;
+		Numero = numero;
+		this.idPessoa = idPessoa;
+	}
+
+
+
+	public int getIdPessoa() {
+		return idPessoa;
+	}
+
+
+
+	public void setIdPessoa(int idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 
@@ -45,11 +67,11 @@ public class Endereco {
 		Cidade = cidade;
 	}
 
-	public String getNumero() {
+	public int getNumero() {
 		return Numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		Numero = numero;
 	}
 

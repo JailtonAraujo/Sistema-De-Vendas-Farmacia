@@ -1,16 +1,20 @@
 package com.projeto.sistemafarmacia.controllers;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
+import com.projeto.sistemafarmacia.dao.DAOCliente;
 import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Contato;
 import com.projeto.sistemafarmacia.model.Endereco;
+import com.projeto.sistemafarmacia.util.FormatCadastrarExibir;
 import com.projeto.sistemafarmacia.util.TextFieldFormatter;
 
 import javafx.event.ActionEvent;
@@ -54,6 +58,8 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 	private JFXButton btnSair;
 
 	
+	private DAOCliente daoCliente = new DAOCliente(); 
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -81,7 +87,16 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 
 	@FXML
 	void eventSalvar(ActionEvent event) {
-
+			
+			if(ObterModelo() == null) {
+				JOptionPane.showMessageDialog(null, "informações inválidas, confira os dados!");
+			}else {
+				
+				if(daoCliente.Insert(ObterModelo())) {
+					JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!");
+				}
+			}
+		
 		}
 
 	
@@ -103,6 +118,7 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 		Cliente cliente;
 		Contato contato;
 		Endereco endereco;
+		FormatCadastrarExibir cadastrarExibir = new FormatCadastrarExibir();
 
 		String id = txtId.getText();
 		String nome = txtNome.getText();
@@ -112,11 +128,23 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 		String numero = txtNumero.getText();
 		String telefone = txtTelefone.getText();
 		String email = txtEmail.getText();
+		
+		String dados [] = {nome, cpf, logradouro, cidade, numero, telefone, email};
 
-		if (id == null || id.equalsIgnoreCase("")) {
-
+		if (id == null || id.equalsIgnoreCase("") || id.isEmpty()) {
+			id = "0";
 		}
-
+		
+		if(ValidarCampo(dados)) {
+			
+			contato = new Contato(cadastrarExibir.telefoneToCadastrar(telefone), email);
+			endereco = new Endereco(logradouro, cidade, Integer.valueOf(numero));
+			
+			cliente = new Cliente(nome, contato, endereco, cadastrarExibir.cpfToCadastrar(cpf));
+			
+			return cliente;
+		}
+		
 		return null;
 
 	}
@@ -152,7 +180,23 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 		}
 	}
 
-	public boolean ValidarCampo(Cliente cliente) {
-		return false;
+	public boolean ValidarCampo(String dados []) {
+		
+		boolean validado = true;
+		
+		if(dados[1].trim().length() < 14 || dados[5].trim().length() < 14 ) {
+			validado = false;
+		}else {
+		
+		for(int i = 0; i < dados.length; i++) {
+			if(dados[i] == null || dados[i].trim().isEmpty() || dados.length < 0) {
+				validado = false;
+				break;
+			}
+		}
+				
+		}
+		
+		return validado;
 	}
 }

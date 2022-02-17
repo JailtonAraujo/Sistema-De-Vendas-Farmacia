@@ -4,6 +4,16 @@ public class Cliente extends Pessoa {
 
 	private Long cpf;
 
+	public Cliente(int iD, String nome, Contato contato, Endereco endereco, Long cpf) {
+		super(iD, nome, contato, endereco);
+		this.cpf = cpf;
+	}
+
+	public Cliente(String nome, Contato contato, Endereco endereco, Long cpf) {
+		super(nome, contato, endereco);
+		this.cpf = cpf;
+	}
+
 	public Long getCpf() {
 		return cpf;
 	}
@@ -12,35 +22,15 @@ public class Cliente extends Pessoa {
 		this.cpf = cpf;
 	}
 
-
-	 public Cliente() {}
-
-	
-	 
-	 public Cliente(int iD, String nome, Contato contato,Long cpf) {
-	 super(iD,nome, contato); 
-	 this.cpf = cpf; }
-	 
-	  public Cliente(int iD, String nome,Long cpf) { super(iD,nome); this.cpf = cpf; }
-
-	public String toString() {
-		return "Cliente [ cfp = "+cpf+", ID = "+getID()+", Nome = "+getNome()+", "
-			 + "Contato [ID = "+getContato().getID()+", Email = "+getContato().getEmail()+", Telefone = "+getContato().getTelefone()+"] ]";
+	public Cliente() {
 	}
 
-	
-	  
-	
-	  
+	@Override
+	public String toString() {
+		return "Cliente [cpf=" + cpf + ", getEndereco()=" + getEndereco() + ", getContato()=" + getContato()
+				+ ", getID()=" + getID() + ", getNome()=" + getNome()+"]";
+	}
 
-	
-	  
-
-	
-	 
-	
-	
-	  
 	
 
 }

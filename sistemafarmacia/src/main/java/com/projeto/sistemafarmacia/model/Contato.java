@@ -2,86 +2,72 @@ package com.projeto.sistemafarmacia.model;
 
 import java.util.Objects;
 
-
-
 public class Contato {
 	private int ID;
-	private String Telefone;
-	private String Email;
-	
-	private Pessoa pessoa;
-	
-	public Contato() {}
-	
-	
+	private Long telefone;
+	private String email;
+	private int idPessoa;
 
-	public Contato(int iD, String telefone, String email, Pessoa pessoa) {
+	public Contato() {
+	}
+
+	public Contato(int iD, Long telefone, String email, int idPessoa) {
 		ID = iD;
-		Telefone = telefone;
-		Email = email;
-		this.pessoa = pessoa;
+		this.telefone = telefone;
+		this.email = email;
+		this.idPessoa = idPessoa;
 	}
 
-	public Contato(String telefone, String email) {
-		Telefone = telefone;
-		Email = email;
+	public Contato(Long telefone, String email) {
+		this.telefone = telefone;
+		this.email = email;
 	}
-
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
 
 	public int getID() {
 		return ID;
 	}
 
-
 	public void setID(int iD) {
 		ID = iD;
 	}
 
-
-	public String getTelefone() {
-		return Telefone;
+	public long getTelefone() {
+		return this.telefone;
 	}
 
-
-	public void setTelefone(String telefone) {
-		Telefone = telefone;
+	public void setTelefone(long telefone) {
+		this.telefone = telefone;
 	}
-
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
-
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
+	public int getIdPessoa() {
+		return idPessoa;
+	}
 
+	public void setIdPessoa(int idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	public void setTelefone(Long telefone) {
+		this.telefone = telefone;
+	}
 
 	@Override
 	public String toString() {
-		return "Contato [ID=" + ID + ", Telefone=" + Telefone + ", Email=" + Email + ", pessoa=" + pessoa + "]";
+		return "Contato [ID=" + ID + ", telefone=" + telefone + ", email=" + email + ", idPessoa=" + idPessoa + "]";
 	}
-
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Email, ID, Telefone, pessoa);
+		return Objects.hash(ID, email, idPessoa, telefone);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -92,12 +78,8 @@ public class Contato {
 		if (getClass() != obj.getClass())
 			return false;
 		Contato other = (Contato) obj;
-		return Objects.equals(Email, other.Email) && ID == other.ID && Objects.equals(Telefone, other.Telefone)
-				&& Objects.equals(pessoa, other.pessoa);
+		return ID == other.ID && Objects.equals(email, other.email) && idPessoa == other.idPessoa
+				&& Objects.equals(telefone, other.telefone);
 	}
 
-
-	
-	
-	
 }
