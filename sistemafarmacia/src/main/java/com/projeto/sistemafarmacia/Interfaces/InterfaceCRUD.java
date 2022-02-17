@@ -10,6 +10,8 @@ public interface InterfaceCRUD <E> {
 	
 	public void LimparCampos();
 	
+	public boolean ValidarCampo(String dados[]);
+	
 	
 	//public void CloseView(String Resource);
 	

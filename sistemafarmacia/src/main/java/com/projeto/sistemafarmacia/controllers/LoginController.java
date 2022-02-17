@@ -108,4 +108,10 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 
 	}
 
+	@Override
+	public boolean ValidarCampo(String[] dados) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
