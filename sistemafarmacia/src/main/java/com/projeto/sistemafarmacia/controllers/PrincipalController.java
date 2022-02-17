@@ -43,6 +43,11 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
     }
     
     @FXML
+    void eventProduto(ActionEvent event) {
+    	this.ShowView("/fxml/ViewProdutos.fxml", "Produtos");
+    }
+    
+    @FXML
     void actionSobre(ActionEvent event) {
     	this.ShowView("/fxml/ViewSobre.fxml", "Sobre");
     }
@@ -87,6 +92,12 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 	public void LimparCampos() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean ValidarCampo(String[] dados) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
