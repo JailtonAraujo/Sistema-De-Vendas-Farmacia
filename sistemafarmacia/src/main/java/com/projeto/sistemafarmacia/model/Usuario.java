@@ -1,39 +1,30 @@
 package com.projeto.sistemafarmacia.model;
 
 import java.util.Objects;
-
-import javax.persistence.Entity;
-
-@Entity
 public class Usuario extends Pessoa {
 
-	private String UserName;
-	private String PassWord;
-	/*
-	 * public Usuario(int ID, String Nome, Contato contato, String userName, String
-	 * passWord) { super(ID, Nome, contato); UserName = userName; PassWord =
-	 * passWord; }
-	 * 
-	 */
-	public String getUserName() {
-		return UserName;
+	private String login;
+	private String senha;
+
+	public String getLogin() {
+		return this.login;
 	}
 
-	public void setUserName(String userName) {
-		UserName = userName;
+	public void setLogin(String Login) {
+		this.login = Login;
 	}
 
-	public String getPassWord() {
-		return PassWord;
+	public String getSenha() {
+		return this.senha;
 	}
 
-	public void setPassWord(String passWord) {
-		PassWord = passWord;
+	public void setSenha(String Senha) {
+		this.senha = Senha;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [UserName=" + UserName + ", PassWord=" + PassWord + ", getID()=" + getID() + ", getNome()="
+		return "Usuario [login=" + login + ", senha=" + senha + ", getID()=" + getID() + ", getNome()="
 				+ getNome() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";
 	}
@@ -42,7 +33,7 @@ public class Usuario extends Pessoa {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(PassWord, UserName);
+		return Objects.hash(senha, login);
 	}
 
 	@Override
@@ -54,7 +45,7 @@ public class Usuario extends Pessoa {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(PassWord, other.PassWord) && Objects.equals(UserName, other.UserName);
+		return Objects.equals(senha, other.senha) && Objects.equals(login, other.login);
 	}
 
 }

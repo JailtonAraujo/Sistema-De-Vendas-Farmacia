@@ -27,7 +27,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtCpf" focusColor="#0cb5d3" labelFloat="true" layoutX="37.0" layoutY="151.0" prefHeight="25.0" prefWidth="226.0" promptText="CPF:" unFocusColor="BLACK">
+            <JFXTextField fx:id="txtCpf" focusColor="#0cb5d3" labelFloat="true" layoutX="37.0" layoutY="151.0" onKeyReleased="#eventReleased" prefHeight="25.0" prefWidth="226.0" promptText="CPF:" unFocusColor="BLACK">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -47,7 +47,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtTelefone" focusColor="#0db4d1" labelFloat="true" layoutX="803.0" layoutY="29.0" prefHeight="25.0" prefWidth="226.0" promptText="TELEFONE:" unFocusColor="BLACK">
+            <JFXTextField fx:id="txtTelefone" focusColor="#0db4d1" labelFloat="true" layoutX="803.0" layoutY="29.0" onKeyReleased="#eventReleasedTelefone" prefHeight="25.0" prefWidth="226.0" promptText="TELEFONE:" unFocusColor="BLACK">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

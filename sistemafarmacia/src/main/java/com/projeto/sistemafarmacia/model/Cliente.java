@@ -1,17 +1,14 @@
 package com.projeto.sistemafarmacia.model;
 
-import javax.persistence.Entity;
-
-@Entity
 public class Cliente extends Pessoa {
 
-	private String cpf;
+	private Long cpf;
 
-	public String getCpf() {
+	public Long getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
 
@@ -20,11 +17,11 @@ public class Cliente extends Pessoa {
 
 	
 	 
-	 public Cliente(int iD, String nome, Contato contato,String cpf) {
+	 public Cliente(int iD, String nome, Contato contato,Long cpf) {
 	 super(iD,nome, contato); 
 	 this.cpf = cpf; }
 	 
-	  public Cliente(int iD, String nome,String cpf) { super(iD,nome); this.cpf = cpf; }
+	  public Cliente(int iD, String nome,Long cpf) { super(iD,nome); this.cpf = cpf; }
 
 	public String toString() {
 		return "Cliente [ cfp = "+cpf+", ID = "+getID()+", Nome = "+getNome()+", "

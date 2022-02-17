@@ -8,10 +8,10 @@ import javax.swing.JOptionPane;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
-import com.projeto.sistemafarmacia.dao.GenericDAO;
 import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Contato;
 import com.projeto.sistemafarmacia.model.Endereco;
+import com.projeto.sistemafarmacia.util.TextFieldFormatter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -52,27 +53,35 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 	@FXML
 	private JFXButton btnSair;
 
-	private final GenericDAO<Cliente> genericDAO = new GenericDAO<Cliente>();
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@FXML
+    void eventReleased(KeyEvent event) {
+		TextFieldFormatter formatter = new TextFieldFormatter();
+		formatter.setMask("###.###.###-##");
+		formatter.setCaracteresValidos("0123456789");
+		formatter.setTf(txtCpf);
+		formatter.formatter();
+    }
+	
+	@FXML
+    void eventReleasedTelefone(KeyEvent event) {
+		TextFieldFormatter fieldFormatter = new TextFieldFormatter();
+		fieldFormatter.setMask("(##)#####-####");
+		fieldFormatter.setCaracteresValidos("0123456789");
+		fieldFormatter.setTf(txtTelefone);
+		fieldFormatter.formatter();
+    }
 
 	@FXML
 	void eventSalvar(ActionEvent event) {
 
-		Cliente cliente = this.ObterModelo();
-
-
-			if (this.genericDAO.Salvar(cliente)) {
-
-				JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO!", "SUCESSO!", 1);
-				this.LimparCampos();
-			} else {
-
-			}
 		}
 
 	
@@ -105,20 +114,6 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 		String email = txtEmail.getText();
 
 		if (id == null || id.equalsIgnoreCase("")) {
-			id = "0";
-			cliente = new Cliente(Integer.parseInt(id), nome, cpf);
-			contato = new Contato(telefone, email);
-			endereco = new Endereco(logradouro, cidade, numero);
-
-			contato.setPessoa(cliente);
-			cliente.setContato(contato);
-
-			if (this.ValidarCampo(cliente)) {
-				return cliente;
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Os Campos Não Foram Preenchidos Corretamente, Por Favor, Confira-os!", "ERRO!", 0);
-			}
 
 		}
 
@@ -141,7 +136,7 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 	}
 
 	@Override
-	public void ShowView(String Resource, String Title, String msg) {
+	public void ShowView(String Resource, String Title) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource(Resource));
 			Stage stage = new Stage();
@@ -158,14 +153,6 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 	}
 
 	public boolean ValidarCampo(Cliente cliente) {
-		if ((cliente.getNome() != null && cliente.getNome().length() > 0)
-				&& (cliente.getCpf() != null && cliente.getCpf().length() > 0 && cliente.getCpf().length() == 12)
-				&& (cliente.getContato().getEmail() != null && cliente.getContato().getEmail().length() > 0)
-				&& (cliente.getContato().getTelefone() != null && cliente.getContato().getTelefone().length() > 0
-						&& cliente.getContato().getTelefone().length() == 11)) {
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 	}
 }

@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 
 import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
-import com.projeto.sistemafarmacia.dao.GenericDAO;
+import com.projeto.sistemafarmacia.dao.DAOLogin;
 import com.projeto.sistemafarmacia.model.Usuario;
 
 import javafx.event.ActionEvent;
@@ -25,6 +25,8 @@ import javafx.stage.StageStyle;
 
 public class PrincipalController implements Initializable, InterfaceCRUD<Usuario>{
 
+	
+	
 	@FXML
     private Label UsuarioLabe;
 	
@@ -37,27 +39,27 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 
     @FXML
     void eventCadastrar(ActionEvent event) {
-    	this.ShowView("/fxml/ViewCliente.fxml", "Usuário", "");
+    	this.ShowView("/fxml/ViewCliente.fxml", "Usuário");
     }
     
     @FXML
     void actionSobre(ActionEvent event) {
-    	this.ShowView("/fxml/ViewSobre.fxml", "Sobre", "");
+    	this.ShowView("/fxml/ViewSobre.fxml", "Sobre");
     }
 	
-    GenericDAO<Usuario> dao = new GenericDAO<Usuario>();
+   
 	
-	String UsuarioLogin = dao.getUsuarioLogin();
+	//String UsuarioLogin = dao.getUsuarioLogin();
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		UsuarioLabe.setText(UsuarioLogin.toUpperCase());
+		UsuarioLabe.setText(new DAOLogin().getUserName());
 		lblData.setText(data.format(formatter));
 		// TODO Auto-generated method stub	
 	}
 	
 	@Override
-	public void ShowView(String Resource, String Title, String msg){
+	public void ShowView(String Resource, String Title){
 		try {
 		Parent root = FXMLLoader.load(getClass().getResource(Resource));
 		Stage stage = new Stage();

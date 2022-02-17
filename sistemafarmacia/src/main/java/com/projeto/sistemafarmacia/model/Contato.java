@@ -2,27 +2,13 @@ package com.projeto.sistemafarmacia.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Cascade;
 
-@Entity
 public class Contato {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	private String Telefone;
 	private String Email;
 	
-	
-	@OneToOne
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
-	@JoinColumn(name = "Pessoa_fk")
 	private Pessoa pessoa;
 	
 	public Contato() {}
