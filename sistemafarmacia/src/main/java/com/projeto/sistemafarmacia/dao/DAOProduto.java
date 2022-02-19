@@ -29,6 +29,7 @@ public class DAOProduto {
 			statement.setInt(4, produto.getEstoque());
 			statement.setDouble(5, produto.getPreco());
 			
+			
 			statement.execute();
 			
 			connection.commit();
