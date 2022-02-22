@@ -94,6 +94,7 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 				
 				if(daoCliente.Insert(ObterModelo())) {
 					JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!");
+					this.LimparCampos();
 				}
 			}
 		
