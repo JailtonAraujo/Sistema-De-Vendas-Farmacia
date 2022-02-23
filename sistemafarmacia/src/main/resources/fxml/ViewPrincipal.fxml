@@ -31,7 +31,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="VENDAS">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="LANÇAMENOS DE VENDA" />
+                    <MenuItem mnemonicParsing="false" onAction="#actionLancamentoDeVendas" text="LANÇAMENOS DE VENDA" />
                         <MenuItem mnemonicParsing="false" text="HISTORICO" />
                   </items>
                 </Menu>

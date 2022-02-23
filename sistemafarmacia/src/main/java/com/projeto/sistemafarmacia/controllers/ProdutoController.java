@@ -105,6 +105,7 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	    	}else {
 	    	if(daoProduto.Insert(ObterModelo())) {
 	    		JOptionPane.showMessageDialog(null, "Produto Cadastrado Com Sucesso!");
+	    		this.LimparCampos();
 	    	}else {}		
 	    	}
 	    }

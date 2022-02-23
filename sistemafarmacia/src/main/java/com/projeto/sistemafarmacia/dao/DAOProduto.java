@@ -20,7 +20,7 @@ public class DAOProduto {
 		
 		try {
 			
-			String sql = "insert into produto (id, nome, descricao, estoque, preco) values (?, ?, ?, ?, ?)";
+			String sql = "insert into produto (idproduto, nome, descricao, estoque, preco) values (?, ?, ?, ?, ?)";
 			
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setLong(1, produto.getId());
