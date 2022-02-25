@@ -13,12 +13,12 @@ public class DAOLogin {
 	
 	private static String nomeUser = "";
 	
-	public DAOLogin() {
-		connection = SingleConnection.getConnection();
-	}
 	
 	public boolean Logar (Usuario usuario) throws SQLException {
-		String sql = "select * from usuario where login = ? and senha = ?";
+		
+		connection = SingleConnection.getConnection();
+		
+		String sql = "select ID, nome from usuario where login = ? and senha = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, usuario.getLogin());
@@ -30,6 +30,7 @@ public class DAOLogin {
 			nomeUser = resultSet.getString("nome");
 			connection.commit();
 			statement.close();
+			connection.close();
 			return true; //Autenticado
 		}else {
 			return false; //Não Autenticado

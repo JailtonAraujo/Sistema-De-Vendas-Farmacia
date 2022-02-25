@@ -2,6 +2,7 @@ package com.projeto.sistemafarmacia.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -167,6 +168,17 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 			}
 		}
 		return validado;
+	}
+
+	@Override
+	public void atualizarTabela() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setarCompos() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

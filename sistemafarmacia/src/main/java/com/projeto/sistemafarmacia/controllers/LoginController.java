@@ -3,6 +3,7 @@ package com.projeto.sistemafarmacia.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
@@ -112,6 +113,17 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 	public boolean ValidarCampo(String[] dados) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void atualizarTabela() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setarCompos() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.projeto.sistemafarmacia.Interfaces;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface InterfaceCRUD <E> {
 
@@ -12,6 +13,9 @@ public interface InterfaceCRUD <E> {
 	
 	public boolean ValidarCampo(String dados[]);
 	
+	public void atualizarTabela();
+	
+	public void setarCompos();
 	
 	//public void CloseView(String Resource);
 	

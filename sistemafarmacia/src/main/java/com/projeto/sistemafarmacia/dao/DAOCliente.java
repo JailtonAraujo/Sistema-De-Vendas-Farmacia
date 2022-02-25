@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.projeto.sistemafarmacia.model.Cliente;
 
@@ -12,9 +14,6 @@ public class DAOCliente {
 
 	private Connection connection = null;
 	
-	public DAOCliente() {
-		connection = SingleConnection.getConnection();
-	}
 	
 	public boolean Insert (Cliente cliente){
 		
@@ -23,6 +22,8 @@ public class DAOCliente {
 		String sqlCliente = "insert into cliente (nome, cpf, idcontato, idendereco) values (?, ?, ?, ?)";
 		String sqlContato = "insert into contato (email, telefone) values (?, ?)";
 		String sqlEndereco = "insert into endereco (logradouro, cidade, numero) values (?, ?, ?)";
+		
+		connection = SingleConnection.getConnection();
 		
 		PreparedStatement statement = connection.prepareStatement(sqlContato, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, cliente.getContato().getEmail());
@@ -55,6 +56,7 @@ public class DAOCliente {
 			
 			connection.commit();
 			statement.close();
+			connection.close();
 			
 			return true;
 		
@@ -62,9 +64,11 @@ public class DAOCliente {
 		}catch(Exception ex) {
 			try {
 				connection.rollback();
+				connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
 			ex.printStackTrace();
 		}
 		
@@ -72,5 +76,40 @@ public class DAOCliente {
 		return false;
 	}
 	
+	public List<Cliente> buscarClientePorNome(String Nome) {
+		
+		try {
+			
+			connection = SingleConnection.getConnection();
+			
+			String sql = "select ID, nome from cliente where nome like ?";
+			
+			List<Cliente> listCliente = new ArrayList<Cliente>();
+			
+			PreparedStatement statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, Nome+"%");
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setID(resultSet.getInt("ID"));
+				cliente.setNome(resultSet.getString("nome"));
+				
+				listCliente.add(cliente);
+			}
+			
+			statement.close();
+			connection.close();
+			
+			return listCliente;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	
 }

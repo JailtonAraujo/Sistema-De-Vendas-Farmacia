@@ -5,26 +5,38 @@ import java.util.Objects;
 
 public class Produto implements Serializable{
 	
-	private long id;
+	private long idProduto;
+	private int idTabela;
 	private String nome;
-	private String descrição;
+	private String descricao;
 	private int estoque;
 	private double preco;
 
-	public Produto(long id, String nome, String descrição, int estoque, double preco) {
-		this.id = id;
+	public Produto() {}
+	
+	public Produto(long id,String nome, String descricao, int estoque, double preco) {
+		this.idProduto = id;
 		this.nome = nome;
-		this.descrição = descrição;
+		this.descricao = descricao;
 		this.estoque = estoque;
 		this.preco = preco;
 	}
+	
+
+	public int getIdTabela() {
+		return idTabela;
+	}
+
+	public void setIdTabela(int idTabela) {
+		this.idTabela = idTabela;
+	}
 
 	public long getId() {
-		return id;
+		return idProduto;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.idProduto = id;
 	}
 
 	public String getNome() {
@@ -35,12 +47,12 @@ public class Produto implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getDescrição() {
-		return descrição;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescrição(String descrição) {
-		this.descrição = descrição;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public int getEstoque() {
@@ -61,13 +73,13 @@ public class Produto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", descrição=" + descrição + ", estoque=" + estoque + ", preco="
-				+ preco + "]";
+		return "Produto [idProduto=" + idProduto + ", idTabela=" + idTabela + ", nome=" + nome + ", descricao="
+				+ descricao + ", estoque=" + estoque + ", preco=" + preco + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(descrição, estoque, id, nome, preco);
+		return Objects.hash(descricao, estoque, idProduto, idTabela, nome, preco);
 	}
 
 	@Override
@@ -79,8 +91,8 @@ public class Produto implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		return Objects.equals(descrição, other.descrição) && estoque == other.estoque && id == other.id
-				&& Objects.equals(nome, other.nome)
+		return Objects.equals(descricao, other.descricao) && estoque == other.estoque && idProduto == other.idProduto
+				&& idTabela == other.idTabela && Objects.equals(nome, other.nome)
 				&& Double.doubleToLongBits(preco) == Double.doubleToLongBits(other.preco);
 	}
 	
