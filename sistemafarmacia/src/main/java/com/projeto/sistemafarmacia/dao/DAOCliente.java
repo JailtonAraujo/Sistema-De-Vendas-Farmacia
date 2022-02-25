@@ -82,7 +82,7 @@ public class DAOCliente {
 			
 			connection = SingleConnection.getConnection();
 			
-			String sql = "select ID, nome from cliente where nome like ?";
+			String sql = "select ID, nome, cpf from cliente where nome like ?";
 			
 			List<Cliente> listCliente = new ArrayList<Cliente>();
 			
@@ -96,6 +96,7 @@ public class DAOCliente {
 				Cliente cliente = new Cliente();
 				cliente.setID(resultSet.getInt("ID"));
 				cliente.setNome(resultSet.getString("nome"));
+				cliente.setCpf(resultSet.getLong("cpf"));
 				
 				listCliente.add(cliente);
 			}

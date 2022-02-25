@@ -2,8 +2,12 @@ package com.projeto.sistemafarmacia.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -14,6 +18,8 @@ import com.projeto.sistemafarmacia.dao.DAOCliente;
 import com.projeto.sistemafarmacia.dao.DAOProduto;
 import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Produto;
+import com.projeto.sistemafarmacia.model.itemPedido;
+import com.projeto.sistemafarmacia.util.FormatCadastrarExibir;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,8 +44,12 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 	private List<Cliente> listClientes;
 	private ObservableList<Produto> observableListProduto = FXCollections.observableArrayList();
 	private ObservableList<String> observableListClientes = FXCollections.observableArrayList();
+	private ObservableList<Produto> observableListItensPedido = FXCollections.observableArrayList();
 	private Produto objetoSelecionado = new Produto();
+	private Produto itemSelecionado = new Produto();
 	private Cliente clienteSelected = new Cliente();
+	private FormatCadastrarExibir format = new FormatCadastrarExibir();
+	private List<Produto> listaItemsPedido = new ArrayList<Produto>();
 	
 	@FXML
 	private JFXComboBox<String> boxCliente;
@@ -67,6 +77,9 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 
     @FXML
     private JFXTextField txtEstoque;
+    
+    @FXML
+    private JFXTextField txtCpf;
 
     @FXML
     private JFXTextField txtPreco;
@@ -93,7 +106,26 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     private TableColumn<Produto, Double> colunmPreco;
     
     @FXML
+    private TableView<Produto> tblItemPedido;
+    
+    @FXML
+    private TableColumn<Produto, String> columnTblItemName;
+
+    @FXML
+    private TableColumn<Produto, Double> columnTblItemPreco;
+
+    @FXML
+    private TableColumn<Produto, Integer> columnTblItemQuantidade;
+    
+    @FXML
     private TextField txtBuscaProduto;
+    
+    @FXML
+    private TextField txtPrecoTotal;
+
+
+    @FXML
+    private TextField txtTotalItens;
 
     @FXML
     void eventBuscarProduto(ActionEvent event) {
@@ -132,6 +164,45 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     		atualizarTabela();
     	}
     }
+    
+    @FXML
+    void eventRemoverItem(ActionEvent event) {
+    	
+    	if(tblItemPedido.getSelectionModel().getSelectedIndex() >= 0 && tblItemPedido.getSelectionModel().getSelectedIndex() < listaItemsPedido.size()) {
+    		
+    		listaItemsPedido.remove(tblItemPedido.getSelectionModel().getSelectedIndex());
+        	atualizarTblItens();
+    		
+    	}else {
+    		JOptionPane.showMessageDialog(null, "Nenhum Produto Selecionado!");
+    	}
+    	
+    }
+    
+    @FXML
+    void eventFecharPedido(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void eventCancelarCompra(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void eventAdicionar(ActionEvent event) {
+    	if(objetoSelecionado != null) {
+    		if(Integer.parseInt(txtQuantidade.getText()) > 0) {  
+    			itemSelecionado.setEstoque(Integer.parseInt(txtQuantidade.getText()));
+    			listaItemsPedido.add(itemSelecionado);
+    			atualizarTblItens();
+    		}else {
+    			JOptionPane.showMessageDialog(null, "Informe a Quantidade do Produto");
+    		}
+    	}else {
+    		JOptionPane.showMessageDialog(null, "Nenhum Produto foi selecionado!");
+    	}
+    }
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -145,10 +216,11 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 	    }
 	 
 	 @FXML
-	    void eventBoxClientes(ActionEvent event) {
+	    void eventBoxClientes(ActionEvent event) throws ParseException {
 		 
 		 if(boxCliente.getSelectionModel().getSelectedIndex() >= 0 && boxCliente.getSelectionModel().getSelectedIndex() < listClientes.size()) {
 			 clienteSelected = listClientes.get(boxCliente.getSelectionModel().getSelectedIndex());
+			 txtCpf.setText(format.cpfToExbir(clienteSelected.getCpf()));
 		 }else {}
 		 
 	    }
@@ -197,11 +269,17 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 		colunmDescricao.setCellValueFactory(new PropertyValueFactory("descricao"));
 		colunmEstoque.setCellValueFactory(new PropertyValueFactory("estoque"));
 		colunmPreco.setCellValueFactory(new PropertyValueFactory("preco"));
+		
+		columnTblItemName.setCellValueFactory(new PropertyValueFactory("nome"));
+		columnTblItemQuantidade.setCellValueFactory(new PropertyValueFactory("estoque"));
+		columnTblItemPreco.setCellValueFactory(new PropertyValueFactory("preco"));
+		
 	}
 
 	@Override
 	public void setarCompos() {
 		objetoSelecionado = tblProdutos.getItems().get(tblProdutos.getSelectionModel().getSelectedIndex());
+		itemSelecionado =  tblProdutos.getItems().get(tblProdutos.getSelectionModel().getSelectedIndex());
 		txtCodigoDoProduto.setText(Long.toString(objetoSelecionado.getId()));
 		txtEstoque.setText(Integer.toString(objetoSelecionado.getEstoque()));
 		txtPreco.setText(Double.toString(objetoSelecionado.getPreco()));
@@ -217,6 +295,24 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 		
 		boxCliente.getItems().setAll(observableListClientes);
 		boxCliente.getSelectionModel().selectFirst();
+		
+	}
+	
+	public void atualizarTblItens() {
+		observableListItensPedido.clear();
+		double precoTotal = 0.0;
+		int quantTotal = 0;
+		for (Produto produto : listaItemsPedido) {
+			quantTotal += produto.getEstoque();
+			precoTotal += (produto.getPreco() * produto.getEstoque());
+			observableListItensPedido.add(produto);
+		}
+		
+		txtPrecoTotal.setText(Double.toString(precoTotal));
+		txtTotalItens.setText(Integer.toString(quantTotal));
+		
+		tblItemPedido.getItems().setAll(observableListItensPedido);
+		tblItemPedido.getSelectionModel().selectFirst();
 		
 	}
 
