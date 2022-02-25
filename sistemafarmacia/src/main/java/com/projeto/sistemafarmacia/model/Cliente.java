@@ -30,6 +30,7 @@ public class Cliente extends Pessoa {
 		return "Cliente [cpf=" + cpf + ", getEndereco()=" + getEndereco() + ", getContato()=" + getContato()
 				+ ", getID()=" + getID() + ", getNome()=" + getNome()+"]";
 	}
+	
 
 	
 
