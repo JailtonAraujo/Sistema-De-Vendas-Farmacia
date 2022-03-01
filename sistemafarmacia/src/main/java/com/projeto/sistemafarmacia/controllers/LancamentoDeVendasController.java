@@ -3,6 +3,7 @@ package com.projeto.sistemafarmacia.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,9 +16,13 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
 import com.projeto.sistemafarmacia.dao.DAOCliente;
+import com.projeto.sistemafarmacia.dao.DAOLancamentoVenda;
+import com.projeto.sistemafarmacia.dao.DAOLogin;
 import com.projeto.sistemafarmacia.dao.DAOProduto;
 import com.projeto.sistemafarmacia.model.Cliente;
+import com.projeto.sistemafarmacia.model.Pedido;
 import com.projeto.sistemafarmacia.model.Produto;
+import com.projeto.sistemafarmacia.model.Usuario;
 import com.projeto.sistemafarmacia.model.itemPedido;
 import com.projeto.sistemafarmacia.util.FormatCadastrarExibir;
 
@@ -40,6 +45,7 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 
 	private DAOProduto daoProduto = new DAOProduto();
 	private DAOCliente daoCliente = new DAOCliente();
+	private DAOLancamentoVenda daoLancamentoVenda = new DAOLancamentoVenda();
 	private List<Produto> listaDeProdutos;
 	private List<Cliente> listClientes;
 	private ObservableList<Produto> observableListProduto = FXCollections.observableArrayList();
@@ -49,7 +55,8 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 	private Produto itemSelecionado = new Produto();
 	private Cliente clienteSelected = new Cliente();
 	private FormatCadastrarExibir format = new FormatCadastrarExibir();
-	private List<Produto> listaItemsPedido = new ArrayList<Produto>();
+	private List<Produto> listaItemsPedidoProduto = new ArrayList<Produto>();//LISTA CRIADA EM TEMPO DE EXECUÇÃO PARA EXIBIR NA LISTA DE COMPRA OS PRODUTOS SELECIONADOS//
+	private List<itemPedido> listaItemsPedido = new ArrayList<itemPedido>();
 	
 	@FXML
 	private JFXComboBox<String> boxCliente;
@@ -127,6 +134,12 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     @FXML
     private TextField txtTotalItens;
 
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+		montarCulunas();
+		checkCredito.setSelected(true);
+	}
+    
     @FXML
     void eventBuscarProduto(ActionEvent event) {
     	this.atualizarTabela();
@@ -149,12 +162,18 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     	if(checkDebito.isSelected()) {
     		checkDebito.setSelected(false);
     	}
+    	if(!checkDebito.isSelected()&&!checkCredito.isSelected()) {
+    		checkCredito.setSelected(true);
+    	}
     }
 
     @FXML
     void eventCheckDebito(MouseEvent event) {
     	if(checkCredito.isSelected()) {
     		checkCredito.setSelected(false);
+    	}
+    	if(!checkDebito.isSelected()&&!checkCredito.isSelected()) {
+    		checkCredito.setSelected(true);
     	}
     }
     
@@ -170,6 +189,8 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     	
     	if(tblItemPedido.getSelectionModel().getSelectedIndex() >= 0 && tblItemPedido.getSelectionModel().getSelectedIndex() < listaItemsPedido.size()) {
     		
+    		/*COMO AS LISTAS DE ItensPedidoProduto e ItensPedido ESTÃO SINCRONIZADAS O MESMO INDEX USADO PARA REMOVER DE ItensPedidoProduto PODE SER USADO PARA REMOVER DE itensPedido*/
+    		listaItemsPedidoProduto.remove(tblItemPedido.getSelectionModel().getSelectedIndex());
     		listaItemsPedido.remove(tblItemPedido.getSelectionModel().getSelectedIndex());
         	atualizarTblItens();
     		
@@ -181,20 +202,48 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     
     @FXML
     void eventFecharPedido(ActionEvent event) {
-
+    	int opc=0;
+    	
+    	if(listaItemsPedido.isEmpty() || listaItemsPedido.size() < 1) {
+    		JOptionPane.showMessageDialog(null, "A LISTA DE ITENS ESTÁ VAZIA!","ATENÇÃO",0);
+    	}
+    	
+    	else if(montarPedido()==null) {
+    		JOptionPane.showMessageDialog(null, "É OBRIGATORIO INFORMAR O CLIENTE PARA COMPRAS NO DÉBITO!", "ATENÇÃO!",1);
+    	
+    	}else {
+    		
+    		opc = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA FECHAR O PEDIDO ATUAL?", "ATENÇÃO", 0);
+    		if(opc==0) {    			
+    			if(daoLancamentoVenda.salvarPedido(montarPedido())) {
+    				JOptionPane.showMessageDialog(null, "PEDIDO SALVO COM SUCESSO!", "ATENÇÃO!",1);
+    			}else {
+    				JOptionPane.showMessageDialog(null, "ERRO AO SALVAR PEDIDO!", "ATENÇÃO!",0);
+    			}
+    		}
+		}
+    
     }
     
     @FXML
     void eventCancelarCompra(ActionEvent event) {
-
+    	int opc = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA CANCELAR O PEDIDO ATURAL?", "ATENÇÃO!", 0);
+    	if(opc==0) {
+    		Stage stage = (Stage) btnSair.getScene().getWindow();
+    		stage.close();
+    	}
     }
     
     @FXML
     void eventAdicionar(ActionEvent event) {
     	if(objetoSelecionado != null) {
-    		if(Integer.parseInt(txtQuantidade.getText()) > 0) {  
+    		if(Integer.parseInt(txtQuantidade.getText()) > 0) {
+    			itemPedido itemPedido = new itemPedido();
     			itemSelecionado.setEstoque(Integer.parseInt(txtQuantidade.getText()));
-    			listaItemsPedido.add(itemSelecionado);
+    			listaItemsPedidoProduto.add(itemSelecionado);//ADICIONADO PRODUTO SELECIONADO A LISTA (ATUAL) DO TIPO produto PARA MOSTRAR PARA O USUARIO//
+    			
+    			itemPedido = new itemPedido(0,itemSelecionado.getEstoque(), itemSelecionado);//CRIANDO O ITEM DO PEDIDO APARTIR DO PRODUTO SELECIONADO//
+    			listaItemsPedido.add(itemPedido);//ADICIONANDO O MESMO PRODUTO PARA A LISTA (ATUAL) DO TIPO itenPedido PARA DEPOIS SER ADICIONADA AO PEDIDO E SALVA EM BANCO//
     			atualizarTblItens();
     		}else {
     			JOptionPane.showMessageDialog(null, "Informe a Quantidade do Produto");
@@ -203,12 +252,6 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     		JOptionPane.showMessageDialog(null, "Nenhum Produto foi selecionado!");
     	}
     }
-	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		montarCulunas();
-		checkCredito.setSelected(true);
-	}
 	
 	 @FXML
 	    void eventBuscarClienteNome(ActionEvent event) {
@@ -237,31 +280,6 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 		}
 		tblProdutos.getItems().setAll(observableListProduto);
 		tblProdutos.getSelectionModel().selectFirst();
-	}
-	
-
-	@Override
-	public Produto ObterModelo() {
-		
-		return null;
-	}
-
-	@Override
-	public void ShowView(String Resource, String Title) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void LimparCampos() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean ValidarCampo(String[] dados) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 	public void montarCulunas() {
@@ -302,7 +320,7 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 		observableListItensPedido.clear();
 		double precoTotal = 0.0;
 		int quantTotal = 0;
-		for (Produto produto : listaItemsPedido) {
+		for (Produto produto : listaItemsPedidoProduto) {
 			quantTotal += produto.getEstoque();
 			precoTotal += (produto.getPreco() * produto.getEstoque());
 			observableListItensPedido.add(produto);
@@ -314,6 +332,68 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 		tblItemPedido.getItems().setAll(observableListItensPedido);
 		tblItemPedido.getSelectionModel().selectFirst();
 		
+	}
+	
+	public Pedido montarPedido() {
+		if(listaItemsPedido.isEmpty()|| listaItemsPedido.size() < 1) {
+			return null;
+		}else {
+			
+		Pedido pedido;
+		Usuario userLogado;
+    	LocalDate dataAtual = LocalDate.now();
+    	double precoTotal = Double.valueOf(txtPrecoTotal.getText());
+    	int quantidadeTotal = Integer.valueOf(txtTotalItens.getText());
+    	userLogado = new DAOLogin().getUserLogado();
+    	int pagamento = 0;
+    	if(checkCredito.isSelected()) {//1 CORRESPONSE AO PAGAMENTO COMO CREDITO E 2 COMO DÉDITO//
+    		pagamento = 1;
+    	}else {
+    		pagamento = 2;
+    	}
+    	
+    	if(checkDebito.isSelected() && (boxCliente.getSelectionModel().isEmpty()||boxCliente.getSelectionModel() == null)) {
+    		/*O USUARIO TENTOU FECHAR UM PEDIDO DO DEBITO SEM INFORMAR UM CLIENTE*/
+			return null;
+		}
+    	
+    	else if(checkCredito.isSelected()&&(boxCliente.getSelectionModel().isEmpty() || boxCliente.getSelectionModel() == null)){
+    		/*COMO NAS COMPRAS NO CREDITO E FACULTATIVO INFORMAR O CLIENTE, CASO NENHUM CLIENTE SEJA INFORMADO SERA ATRIBUIDO AO MESMO UMA VALOR DEFAULT
+    		 * QUE CORRESPONDE A UM REGISTRO DA TABLE CLIENTE CHAMADO DE **COMPRAS A VISTA** */
+    		Cliente Default = new Cliente();
+    		Default.setID(1);
+			pedido = new Pedido(dataAtual.toString(), precoTotal, quantidadeTotal, pagamento, Default,userLogado, listaItemsPedido );
+			return pedido;			
+		}else {
+			/*QUANDO O USUARIO FECHA UM PEDIDO E NO DÉBITO E INFORMA CORRETAMENTO O CLIENTE*/
+			pedido = new Pedido(dataAtual.toString(), precoTotal, quantidadeTotal, pagamento, clienteSelected,userLogado, listaItemsPedido );
+			return pedido;
+			}
+		}
+    	
+	}
+	
+	@Override
+	public Produto ObterModelo() {
+		return null;
+	}
+
+	@Override
+	public void ShowView(String Resource, String Title) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void LimparCampos() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean ValidarCampo(String[] dados) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

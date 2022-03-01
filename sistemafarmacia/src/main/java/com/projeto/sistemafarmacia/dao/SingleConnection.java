@@ -3,6 +3,8 @@ package com.projeto.sistemafarmacia.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import javax.swing.JOptionPane;
+
 public class SingleConnection {
 
 	private static String url = "jdbc:mysql://localhost:3306/bd_sisfarmacia?autoReconnect=true";
@@ -27,5 +29,13 @@ public class SingleConnection {
 		}
 		return null;
 
+	}
+	
+	public static void closeConection() {
+		try {
+			connection.close();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao fechar conexão, causa: "+e.getMessage());
+		}
 	}
 }

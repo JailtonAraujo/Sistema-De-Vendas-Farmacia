@@ -5,8 +5,17 @@ public class itemPedido {
 	private int idItemPedido;
 	private int idPedido;
 	private int quantidade;
-	
+
 	private Produto produto;
+
+	public itemPedido() {
+	}
+
+	public itemPedido(int idPedido, int quantidade, Produto produto) {
+		this.idPedido = idPedido;
+		this.quantidade = quantidade;
+		this.produto = produto;
+	}
 
 	public int getIdItemPedido() {
 		return idItemPedido;
@@ -36,8 +45,8 @@ public class itemPedido {
 		return produto;
 	}
 
-	public void setProduto(int idProduto) {
-		this.produto.setIdTabela(idProduto);
+	public void setProduto(Produto produto) {
+		this.produto.setIdTabela(produto.getIdTabela());
 	}
 
 }

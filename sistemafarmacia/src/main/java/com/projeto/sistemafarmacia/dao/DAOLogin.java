@@ -10,8 +10,7 @@ import com.projeto.sistemafarmacia.model.Usuario;
 public class DAOLogin {
 
 	private Connection connection = null;
-	
-	private static String nomeUser = "";
+	private static Usuario userLogado = new Usuario();
 	
 	
 	public boolean Logar (Usuario usuario) throws SQLException {
@@ -27,7 +26,8 @@ public class DAOLogin {
 		ResultSet resultSet = statement.executeQuery();
 		
 		if(resultSet.next()) {
-			nomeUser = resultSet.getString("nome");
+			userLogado.setID(resultSet.getInt("ID"));
+			userLogado.setNome(resultSet.getString("nome"));
 			connection.commit();
 			statement.close();
 			connection.close();
@@ -38,7 +38,7 @@ public class DAOLogin {
 		
 	}
 	
-	public String getUserName() {
-		return this.nomeUser;
+	public Usuario getUserLogado() {
+		return this.userLogado;
 	}
 }

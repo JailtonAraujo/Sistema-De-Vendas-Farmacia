@@ -97,6 +97,7 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
 		stage.setTitle(Title);
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Img/Icon_User_Menu.png")));
 		stage.setMaximized(true);
 		stage.setResizable(true);
 		stage.initModality(Modality.APPLICATION_MODAL);
