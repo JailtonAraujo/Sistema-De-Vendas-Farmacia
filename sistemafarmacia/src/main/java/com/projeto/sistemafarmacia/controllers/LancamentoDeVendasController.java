@@ -217,6 +217,8 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     		if(opc==0) {    			
     			if(daoLancamentoVenda.salvarPedido(montarPedido())) {
     				JOptionPane.showMessageDialog(null, "PEDIDO SALVO COM SUCESSO!", "ATENÇÃO!",1);
+    				LimparCampos();
+    				
     			}else {
     				JOptionPane.showMessageDialog(null, "ERRO AO SALVAR PEDIDO!", "ATENÇÃO!",0);
     			}
@@ -386,7 +388,12 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 
 	@Override
 	public void LimparCampos() {
-		// TODO Auto-generated method stub
+		listaItemsPedido.clear();
+		listaItemsPedidoProduto.clear();
+		observableListItensPedido.clear();
+		atualizarTblItens();
+		
+		
 		
 	}
 
