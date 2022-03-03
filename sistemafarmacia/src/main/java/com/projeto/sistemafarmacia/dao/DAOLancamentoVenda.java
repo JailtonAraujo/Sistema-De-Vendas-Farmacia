@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.cj.xdevapi.Result;
 import com.projeto.sistemafarmacia.model.Pedido;
 import com.projeto.sistemafarmacia.model.Produto;
 import com.projeto.sistemafarmacia.model.itemPedido;
@@ -38,7 +39,7 @@ public class DAOLancamentoVenda {
 			for(itemPedido iten: pedido.getListaDeItens()) {
 				iten.setIdPedido(idPedido);
 				this.salvarItemPedido(iten);
-				this.atualizarEstoque(iten.getProduto());
+				//this.atualizarEstoque(iten.getProduto());
 			}
 			
 			connection.commit();
@@ -69,15 +70,38 @@ public class DAOLancamentoVenda {
 			statement.execute();
 		}
 		
-		public void atualizarEstoque(Produto produto) throws SQLException {
-			String sql = "update produto set estoque = ? where idProduto = ?";
+		public void atualizarEstoque(Produto produto)  {
+			try {
+				String sql = "update produto set estoque = ? where idtabela = ?";
+				
+				PreparedStatement statement = connection.prepareStatement(sql);
+				statement.setInt(1, produto.getEstoque());
+				statement.setInt(2, produto.getIdTabela());
+				
+				statement.execute();
+				 connection.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, produto.getEstoque());
-			statement.setInt(2, produto.getIdTabela());
-			
-			statement.execute();
-			
+		}
+		
+		public int verificarEstoque(int idTabela) {
+			try {
+				String sql = "select estoque from produto where idtabela = ?";
+				connection = SingleConnection.getConnection();
+				
+				PreparedStatement statement = connection.prepareStatement(sql);
+				statement.setInt(1, idTabela);
+				
+				ResultSet resultSet = statement.executeQuery();
+				resultSet.next();
+				
+				return resultSet.getInt("estoque");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return 0;
 		}
 	
 	

@@ -11,6 +11,7 @@ import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
 import com.projeto.sistemafarmacia.dao.DAOLogin;
 import com.projeto.sistemafarmacia.model.Usuario;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,6 +32,9 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 
 	@FXML
 	private Label lblData;
+	
+	@FXML
+    private MenuItem opcaoSair;
 
 	LocalDate data = LocalDate.now();
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -58,7 +62,11 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 		this.ShowView("/fxml/ViewSobre.fxml", "Sobre");
 	}
 
-	// String UsuarioLogin = dao.getUsuarioLogin();
+	@FXML
+    void eventSair(ActionEvent event) {
+        Platform.exit();
+        System.exit(0);
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

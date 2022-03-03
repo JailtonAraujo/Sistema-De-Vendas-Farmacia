@@ -1,7 +1,9 @@
 package com.projeto.sistemafarmacia.controllers;
 
+import java.awt.HeadlessException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -148,8 +150,12 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 
     @FXML
     void eventSair(ActionEvent event) {
+    	if(listaItemsPedido.size() > 0) {
+    		JOptionPane.showMessageDialog(null, "Você tem um pedido em aberto, feche-o primeiro para poder sair!","ATENÇÃO!",0);
+    	}else {
     	Stage stage = (Stage) btnSair.getScene().getWindow();
 		stage.close();
+    	}
     }
     
     @FXML
@@ -189,10 +195,18 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     	
     	if(tblItemPedido.getSelectionModel().getSelectedIndex() >= 0 && tblItemPedido.getSelectionModel().getSelectedIndex() < listaItemsPedido.size()) {
     		
+    		Produto produtoRetornarEstoque = new Produto();
+    		int estoqueAtual = 0;
     		/*COMO AS LISTAS DE ItensPedidoProduto e ItensPedido ESTÃO SINCRONIZADAS O MESMO INDEX USADO PARA REMOVER DE ItensPedidoProduto PODE SER USADO PARA REMOVER DE itensPedido*/
     		listaItemsPedidoProduto.remove(tblItemPedido.getSelectionModel().getSelectedIndex());
     		listaItemsPedido.remove(tblItemPedido.getSelectionModel().getSelectedIndex());
+    		produtoRetornarEstoque = tblItemPedido.getItems().get(tblItemPedido.getSelectionModel().getSelectedIndex());
+    		estoqueAtual = daoLancamentoVenda.verificarEstoque(produtoRetornarEstoque.getIdTabela());
+    		produtoRetornarEstoque.setEstoque((estoqueAtual+produtoRetornarEstoque.getEstoque()));
+    		daoLancamentoVenda.atualizarEstoque(produtoRetornarEstoque);//DEVOLVENDO O PRODUTO RETIRADO DA LISTA DE COMPRAS AO ESTOQUE.//
         	atualizarTblItens();
+        	atualizarTabela();
+        	LimparCampos();
     		
     	}else {
     		JOptionPane.showMessageDialog(null, "Nenhum Produto Selecionado!");
@@ -217,6 +231,7 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     		if(opc==0) {    			
     			if(daoLancamentoVenda.salvarPedido(montarPedido())) {
     				JOptionPane.showMessageDialog(null, "PEDIDO SALVO COM SUCESSO!", "ATENÇÃO!",1);
+    				limparTbls();
     				LimparCampos();
     				
     			}else {
@@ -231,27 +246,55 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     void eventCancelarCompra(ActionEvent event) {
     	int opc = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA CANCELAR O PEDIDO ATURAL?", "ATENÇÃO!", 0);
     	if(opc==0) {
+    		int estoqueAtual = 0;
+    		for (itemPedido itemPedido : listaItemsPedido) {
+				Produto produtoDevolverAoEstoque = new Produto();
+				produtoDevolverAoEstoque = itemPedido.getProduto();
+				estoqueAtual = daoLancamentoVenda.verificarEstoque(produtoDevolverAoEstoque.getIdTabela());
+				produtoDevolverAoEstoque.setEstoque((estoqueAtual + produtoDevolverAoEstoque.getEstoque()));
+				daoLancamentoVenda.atualizarEstoque(produtoDevolverAoEstoque);
+			}
+    		
     		Stage stage = (Stage) btnSair.getScene().getWindow();
     		stage.close();
     	}
     }
     
     @FXML
-    void eventAdicionar(ActionEvent event) {
-    	if(objetoSelecionado != null) {
+    void eventAdicionar(ActionEvent event) throws NumberFormatException, HeadlessException, SQLException {
+    	if(objetoSelecionado != null && objetoSelecionado.getIdTabela() > 1) {
     		if(Integer.parseInt(txtQuantidade.getText()) > 0) {
     			itemPedido itemPedido = new itemPedido();
+    			Produto produtoComEstoqueAtualizado = new Produto();
     			itemSelecionado.setEstoque(Integer.parseInt(txtQuantidade.getText()));
-    			listaItemsPedidoProduto.add(itemSelecionado);//ADICIONADO PRODUTO SELECIONADO A LISTA (ATUAL) DO TIPO produto PARA MOSTRAR PARA O USUARIO//
     			
-    			itemPedido = new itemPedido(0,itemSelecionado.getEstoque(), itemSelecionado);//CRIANDO O ITEM DO PEDIDO APARTIR DO PRODUTO SELECIONADO//
-    			listaItemsPedido.add(itemPedido);//ADICIONANDO O MESMO PRODUTO PARA A LISTA (ATUAL) DO TIPO itenPedido PARA DEPOIS SER ADICIONADA AO PEDIDO E SALVA EM BANCO//
-    			atualizarTblItens();
+    			int quantidadeProdutoEstoque = daoLancamentoVenda.verificarEstoque(objetoSelecionado.getIdTabela());
+    			
+    			if(quantidadeProdutoEstoque < Integer.parseInt(txtQuantidade.getText())) {
+    				JOptionPane.showMessageDialog(null, "Produto Sem Estoque Disponivel!","ATENÇÂO",1);
+    			}
+    			
+    			else {
+    				listaItemsPedidoProduto.add(itemSelecionado);//ADICIONADO PRODUTO SELECIONADO A LISTA (ATUAL) DO TIPO produto PARA MOSTRAR PARA O USUARIO//
+    				itemPedido = new itemPedido(0,Integer.parseInt(txtQuantidade.getText()), itemSelecionado);//CRIANDO O ITEM DO PEDIDO APARTIR DO PRODUTO SELECIONADO//
+        			listaItemsPedido.add(itemPedido);//ADICIONANDO O MESMO PRODUTO PARA A LISTA (ATUAL) DO TIPO itenPedido PARA DEPOIS SER ADICIONADA AO PEDIDO E SALVA EM BANCO//
+        			produtoComEstoqueAtualizado.setIdTabela(itemSelecionado.getIdTabela());
+        			produtoComEstoqueAtualizado.setEstoque((quantidadeProdutoEstoque-itemSelecionado.getEstoque()));
+        			daoLancamentoVenda.atualizarEstoque(produtoComEstoqueAtualizado);//DANDO BAIXA DO PRODUTO NO ESTOQUE//
+        			atualizarTblItens();
+        			atualizarTabela();
+        			LimparCampos();
+        			
+    			}
+    			
+    			if(quantidadeProdutoEstoque < 20) {
+    				JOptionPane.showMessageDialog(null, "Produto Com Baixa Quantidade em Estoque!","ALERTA!",1);
+    			}
     		}else {
-    			JOptionPane.showMessageDialog(null, "Informe a Quantidade do Produto");
+    			JOptionPane.showMessageDialog(null, "Informe a Quantidade do Produto","ATENÇÃO!",0);
     		}
     	}else {
-    		JOptionPane.showMessageDialog(null, "Nenhum Produto foi selecionado!");
+    		JOptionPane.showMessageDialog(null, "Nenhum Produto foi selecionado!","ATENÇÃO!",0);
     	}
     }
 	
@@ -299,6 +342,7 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 	@Override
 	public void setarCompos() {
 		objetoSelecionado = tblProdutos.getItems().get(tblProdutos.getSelectionModel().getSelectedIndex());
+		
 		itemSelecionado =  tblProdutos.getItems().get(tblProdutos.getSelectionModel().getSelectedIndex());
 		txtCodigoDoProduto.setText(Long.toString(objetoSelecionado.getId()));
 		txtEstoque.setText(Integer.toString(objetoSelecionado.getEstoque()));
@@ -337,6 +381,7 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 	}
 	
 	public Pedido montarPedido() {
+		
 		if(listaItemsPedido.isEmpty()|| listaItemsPedido.size() < 1) {
 			return null;
 		}else {
@@ -388,13 +433,18 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
 
 	@Override
 	public void LimparCampos() {
+		txtCodigoDoProduto.setText("");
+		txtEstoque.setText("");
+		txtNome.setText("");
+		txtPreco.setText("");
+		txtQuantidade.setText("0");
+	}
+	
+	public void limparTbls() {
 		listaItemsPedido.clear();
 		listaItemsPedidoProduto.clear();
 		observableListItensPedido.clear();
 		atualizarTblItens();
-		
-		
-		
 	}
 
 	@Override

@@ -40,6 +40,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#actionSobre" text="INFORMAÇÕES DO SOFTWARE" />
                      </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="MAIS...">
+                     <items>
+                        <MenuItem fx:id="opcaoSair" mnemonicParsing="false" onAction="#eventSair" text="SAIR" />
+                     </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </children>
