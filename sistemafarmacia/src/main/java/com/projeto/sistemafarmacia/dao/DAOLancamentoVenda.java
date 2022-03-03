@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.mysql.cj.xdevapi.Result;
 import com.projeto.sistemafarmacia.model.Pedido;
 import com.projeto.sistemafarmacia.model.Produto;
 import com.projeto.sistemafarmacia.model.itemPedido;
