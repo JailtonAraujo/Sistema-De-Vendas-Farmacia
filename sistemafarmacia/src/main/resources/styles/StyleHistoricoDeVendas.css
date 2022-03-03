@@ -1,1 +1,7 @@
-@charset "ISO-8859-1";
+.root{
+	-fx-background-color:  #DCDCDC;
+}
+
+#header{
+	-fx-background-color: linear-gradient(to right, #00e89c, #00cbc3, #00abee);
+}

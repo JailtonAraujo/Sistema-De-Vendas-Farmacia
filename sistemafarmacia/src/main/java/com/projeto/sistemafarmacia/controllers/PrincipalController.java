@@ -61,6 +61,13 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 	void actionSobre(ActionEvent event) {
 		this.ShowView("/fxml/ViewSobre.fxml", "Sobre");
 	}
+	
+
+    @FXML
+    void actionHistoricoDeVendas(ActionEvent event) {
+    	this.ShowView("/fxml/ViewHistoricoDeVendas.fxml", "Historico de Vendas");
+    }
+
 
 	@FXML
     void eventSair(ActionEvent event) {
