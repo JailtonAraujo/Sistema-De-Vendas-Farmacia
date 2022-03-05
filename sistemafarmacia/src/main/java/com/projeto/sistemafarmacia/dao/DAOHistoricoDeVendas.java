@@ -3,6 +3,7 @@ package com.projeto.sistemafarmacia.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class DAOHistoricoDeVendas {
 			String sql = "select pedido.idPedido, pedido.dataPedido, pedido.precoTotal, pedido.quantidadeTotal, pedido.pagamento, cliente.nome as cliente, usuario.nome as usuario\r\n"
 					+ "from pedido \r\n"
 					+ "inner join usuario on usuario.ID = pedido.idUsuario\r\n"
-					+ "inner join cliente on cliente.ID = pedido.idCliente where pedido.dataPedido = ?;";
+					+ "left join cliente on cliente.ID = pedido.idCliente where pedido.dataPedido = ?;";
 			connection = SingleConnection.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, data);
@@ -46,13 +47,27 @@ public class DAOHistoricoDeVendas {
 				pedido.setPrecoTotal(resultSet.getDouble("precoTotal"));
 				pedido.setQuantidadeTotal(resultSet.getInt("quantidadeTotal"));
 				pedido.setPagamento(resultSet.getInt("pagamento"));
+				pedido.setCliente(cliente);
+				pedido.setUsuario(usuario);
 				pedido.setListaDeItens(itemPedidos);
+				
+				listaDePedidos.add(pedido);
 			}
 			
+			statement.close();
+			connection.commit();
 			return listaDePedidos;
 			
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
+		}finally {
+			SingleConnection.closeConection();
 		}
 		
 		return null;
@@ -76,6 +91,7 @@ public class DAOHistoricoDeVendas {
 				produto = this.buscarProdutoId(resultSet.getInt("idProduto"));
 				
 				itemPedido.setQuantidade(resultSet.getInt("quantidade"));
+				produto.setEstoque(itemPedido.getQuantidade());
 				itemPedido.setProduto(produto);
 				
 				itemPedidos.add(itemPedido);

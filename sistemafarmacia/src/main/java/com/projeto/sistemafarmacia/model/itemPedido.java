@@ -46,7 +46,7 @@ public class itemPedido {
 	}
 
 	public void setProduto(Produto produto) {
-		this.produto.setIdTabela(produto.getIdTabela());
+		this.produto = produto;
 	}
 
 }

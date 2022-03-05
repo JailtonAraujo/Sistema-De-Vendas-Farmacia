@@ -262,7 +262,7 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     
     @FXML
     void eventAdicionar(ActionEvent event) throws NumberFormatException, HeadlessException, SQLException {
-    	if(objetoSelecionado != null && objetoSelecionado.getIdTabela() > 1) {
+    	if(objetoSelecionado != null && objetoSelecionado.getIdTabela() > 0) {
     		if(Integer.parseInt(txtQuantidade.getText()) > 0) {
     			itemPedido itemPedido = new itemPedido();
     			Produto produtoComEstoqueAtualizado = new Produto();
@@ -402,15 +402,6 @@ public class LancamentoDeVendasController implements Initializable, InterfaceCRU
     	if(checkDebito.isSelected() && (boxCliente.getSelectionModel().isEmpty()||boxCliente.getSelectionModel() == null)) {
     		/*O USUARIO TENTOU FECHAR UM PEDIDO DO DEBITO SEM INFORMAR UM CLIENTE*/
 			return null;
-		}
-    	
-    	else if(checkCredito.isSelected()&&(boxCliente.getSelectionModel().isEmpty() || boxCliente.getSelectionModel() == null)){
-    		/*COMO NAS COMPRAS NO CREDITO E FACULTATIVO INFORMAR O CLIENTE, CASO NENHUM CLIENTE SEJA INFORMADO SERA ATRIBUIDO AO MESMO UMA VALOR DEFAULT
-    		 * QUE CORRESPONDE A UM REGISTRO DA TABLE CLIENTE CHAMADO DE **COMPRAS A VISTA** */
-    		Cliente Default = new Cliente();
-    		Default.setID(1);
-			pedido = new Pedido(dataAtual.toString(), precoTotal, quantidadeTotal, pagamento, Default,userLogado, listaItemsPedido );
-			return pedido;			
 		}else {
 			/*QUANDO O USUARIO FECHA UM PEDIDO E NO DÉBITO E INFORMA CORRETAMENTO O CLIENTE*/
 			pedido = new Pedido(dataAtual.toString(), precoTotal, quantidadeTotal, pagamento, clienteSelected,userLogado, listaItemsPedido );

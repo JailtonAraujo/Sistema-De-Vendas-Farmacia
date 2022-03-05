@@ -1,6 +1,7 @@
 package com.projeto.sistemafarmacia.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Pedido {
 
@@ -75,15 +76,16 @@ public class Pedido {
 	}
 
 	public void setCliente(Cliente cliente) {
-		this.cliente.setID(cliente.getID());
+		this.cliente = cliente;
 	}
+
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
-		this.usuario.setID(usuario.getID());
+		this.usuario = usuario;
 	}
 
 	public List<itemPedido> getListaDeItens() {
@@ -101,6 +103,27 @@ public class Pedido {
 				+ ", usuario=" + usuario + ", listaDeItens=" + listaDeItens + "]";
 	}
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(cliente, dataPedido, idPedido, listaDeItens, pagamento, precoTotal, quantidadeTotal,
+				usuario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido other = (Pedido) obj;
+		return Objects.equals(cliente, other.cliente) && Objects.equals(dataPedido, other.dataPedido)
+				&& idPedido == other.idPedido && Objects.equals(listaDeItens, other.listaDeItens)
+				&& pagamento == other.pagamento
+				&& Double.doubleToLongBits(precoTotal) == Double.doubleToLongBits(other.precoTotal)
+				&& quantidadeTotal == other.quantidadeTotal && Objects.equals(usuario, other.usuario);
+	}
 	
 	
 	

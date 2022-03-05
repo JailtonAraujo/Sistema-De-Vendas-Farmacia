@@ -18,27 +18,42 @@ public class DAOLancamentoVenda {
 		
 		try {
 			
-			String sqlPedido = "insert into pedido (dataPedido, precoTotal, quantidadeTotal, pagamento, idCliente, idUsuario) values(?, ?, ?, ?, ?, ?)";
-			
+			String sqlPedido = "";
 			connection = SingleConnection.getConnection();
+			ResultSet resultSet;
 			
-			PreparedStatement statement = connection.prepareStatement(sqlPedido, Statement.RETURN_GENERATED_KEYS);
-			statement.setString(1, pedido.getData());
-			statement.setDouble(2, pedido.getPrecoTotal());
-			statement.setInt(3, pedido.getQuantidadeTotal());
-			statement.setInt(4, pedido.getPagamento());
-			statement.setInt(5, pedido.getCliente().getID());
-			statement.setInt(6, pedido.getUsuario().getID());
+			if(pedido.getCliente().getID() < 1) {//Caso o Usuario não seja Informado nas compras a vista//
+				sqlPedido = "insert into pedido (dataPedido, precoTotal, quantidadeTotal, pagamento,idUsuario) values(?, ?, ?, ?, ?)";
+				PreparedStatement statement = connection.prepareStatement(sqlPedido, Statement.RETURN_GENERATED_KEYS);
+				statement.setString(1, pedido.getData());
+				statement.setDouble(2, pedido.getPrecoTotal());
+				statement.setInt(3, pedido.getQuantidadeTotal());
+				statement.setInt(4, pedido.getPagamento());
+				statement.setInt(5, pedido.getUsuario().getID());
+				statement.execute();
+				resultSet = statement.getGeneratedKeys();
+				
+			}else {
+				
+				sqlPedido = "insert into pedido (dataPedido, precoTotal, quantidadeTotal, pagamento, idCliente, idUsuario) values(?, ?, ?, ?, ?, ?)";
+				PreparedStatement statement = connection.prepareStatement(sqlPedido, Statement.RETURN_GENERATED_KEYS);
+				statement.setString(1, pedido.getData());
+				statement.setDouble(2, pedido.getPrecoTotal());
+				statement.setInt(3, pedido.getQuantidadeTotal());
+				statement.setInt(4, pedido.getPagamento());
+				statement.setInt(5, pedido.getCliente().getID());
+				statement.setInt(6, pedido.getUsuario().getID());
+				statement.execute();
+				resultSet = statement.getGeneratedKeys();
+			}
 			
-			statement.execute();
-			ResultSet resultSet = statement.getGeneratedKeys();
+			
 			resultSet.next();
 			int idPedido = resultSet.getInt(1);
 			
 			for(itemPedido iten: pedido.getListaDeItens()) {
 				iten.setIdPedido(idPedido);
 				this.salvarItemPedido(iten);
-				//this.atualizarEstoque(iten.getProduto());
 			}
 			
 			connection.commit();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,39 +12,40 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="802.0" prefWidth="1318.0" stylesheets="@../styles/StyleHistoricoDeVendas.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.HistoricoDeVendasController">
    <children>
       <Pane layoutX="7.0" layoutY="91.0" prefHeight="330.0" prefWidth="668.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="97.0">
          <children>
-            <JFXTextField editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="23.0" prefHeight="25.0" prefWidth="122.0" promptText="ID:" unFocusColor="BLACK" />
-            <JFXTextField editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="107.0" prefHeight="25.0" prefWidth="93.0" promptText="DATA:" unFocusColor="BLACK" />
-            <JFXTextField editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="188.0" prefHeight="25.0" prefWidth="122.0" promptText="VALOR DO PEDIDO:" unFocusColor="BLACK" />
-            <JFXTextField editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="264.0" prefHeight="25.0" prefWidth="132.0" promptText="QUANTIDADE DE ITENS:" unFocusColor="BLACK" />
-            <JFXTextField editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="23.0" prefHeight="25.0" prefWidth="234.0" promptText="USUARIO:" unFocusColor="BLACK" />
-            <JFXTextField editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="107.0" prefHeight="25.0" prefWidth="234.0" promptText="CLIENTE:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtId" editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="23.0" prefHeight="25.0" prefWidth="122.0" promptText="ID:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtData" editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="93.0" promptText="DATA:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtValPedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="140.0" prefHeight="25.0" prefWidth="122.0" promptText="VALOR DO PEDIDO:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtQuantPedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="9.0" layoutY="201.0" prefHeight="25.0" prefWidth="132.0" promptText="QUANTIDADE DE ITENS:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtUsuarioPedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="23.0" prefHeight="25.0" prefWidth="234.0" promptText="USUARIO:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtClientePedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="107.0" prefHeight="25.0" prefWidth="234.0" promptText="CLIENTE:" unFocusColor="BLACK" />
+            <JFXComboBox fx:id="boxFiltro" editable="true" labelFloat="true" layoutX="384.0" layoutY="201.0" prefHeight="25.0" prefWidth="184.0" promptText="FILTRAR POR:" />
+            <JFXTextField fx:id="txtIntervalo" labelFloat="true" layoutX="384.0" layoutY="264.0" prefHeight="25.0" prefWidth="184.0" promptText="INTERVALO:" />
          </children>
       </Pane>
-      <TableView layoutX="14.0" layoutY="478.0" prefHeight="322.0" prefWidth="668.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="475.0">
+      <TableView fx:id="tblPedidos" layoutX="14.0" layoutY="478.0" onMouseClicked="#eventClickTblPedidos" prefHeight="322.0" prefWidth="668.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="475.0">
         <columns>
-          <TableColumn prefWidth="112.0" text="DATA" />
-          <TableColumn prefWidth="269.0" text="CLIENTE" />
-            <TableColumn prefWidth="285.0" text="USUARIO" />
+          <TableColumn fx:id="columnDataTblPedidos" prefWidth="112.0" text="DATA" />
+          <TableColumn fx:id="columnClienteTblPedidos" prefWidth="269.0" text="CLIENTE" />
+            <TableColumn fx:id="colunmUsuarioTblPedidos" prefWidth="285.0" text="USUARIO" />
         </columns>
       </TableView>
       <AnchorPane layoutX="683.0" layoutY="97.0" prefHeight="700.0" prefWidth="632.0" style="-fx-background-color: #fff;">
          <children>
-            <TableView layoutX="-14.0" prefHeight="700.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="tblProdutosPedido" layoutX="-14.0" prefHeight="700.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn prefWidth="338.0" text="NOME" />
-                <TableColumn minWidth="0.0" prefWidth="173.0" text="QUANTIDADE" />
-                  <TableColumn prefWidth="120.0" text="PREÇO" />
+                <TableColumn fx:id="columnNomeTblProdutos" prefWidth="338.0" text="NOME" />
+                <TableColumn fx:id="columnQuantTblProdutos" minWidth="0.0" prefWidth="173.0" text="QUANTIDADE" />
+                  <TableColumn fx:id="columnPrecoTblProdutos" prefWidth="120.0" text="PREÇO" />
               </columns>
             </TableView>
          </children>
       </AnchorPane>
-      <TextField alignment="CENTER" layoutX="62.0" layoutY="435.0" prefHeight="32.0" prefWidth="444.0" promptText="BUSCAR PEDIDO DATA" style="-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #1E90FF;" />
-      <Button layoutX="520.0" layoutY="435.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="77.0" style="-fx-border-radius: 15px; -fx-background-radius: 15px;" text="Buscar" />
+      <TextField fx:id="txtBuscarPedido" alignment="CENTER" layoutX="62.0" layoutY="435.0" onKeyPressed="#eventPressedBuscarPedido" prefHeight="32.0" prefWidth="444.0" promptText="BUSCAR PEDIDO DATA" style="-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #1E90FF;" />
+      <Button fx:id="btnBuscarPedido" layoutX="520.0" layoutY="435.0" mnemonicParsing="false" onAction="#eventBuscarPedido" prefHeight="32.0" prefWidth="77.0" style="-fx-border-radius: 15px; -fx-background-radius: 15px;" text="Buscar" />
       <AnchorPane id="header" layoutX="32.0" layoutY="-7.0" prefHeight="91.0" prefWidth="1318.0" AnchorPane.bottomAnchor="711.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="458.0" layoutY="19.0" text="HISTORICO DE VENDAS">

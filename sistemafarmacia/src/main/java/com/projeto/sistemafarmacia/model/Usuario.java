@@ -22,13 +22,19 @@ public class Usuario extends Pessoa {
 		this.senha = Senha;
 	}
 
+	/*
 	@Override
 	public String toString() {
 		return "Usuario [login=" + login + ", senha=" + senha + ", getID()=" + getID() + ", getNome()="
 				+ getNome() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";
 	}
-
+*/
+	
+	@Override
+	public String toString() {
+		return getNome();
+	}
 	
 	
 	@Override
