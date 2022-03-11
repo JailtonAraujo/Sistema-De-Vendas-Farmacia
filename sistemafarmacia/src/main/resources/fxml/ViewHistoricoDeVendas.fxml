@@ -21,9 +21,11 @@
             <JFXTextField fx:id="txtValPedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="14.0" layoutY="140.0" prefHeight="25.0" prefWidth="122.0" promptText="VALOR DO PEDIDO:" unFocusColor="BLACK" />
             <JFXTextField fx:id="txtQuantPedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="9.0" layoutY="201.0" prefHeight="25.0" prefWidth="132.0" promptText="QUANTIDADE DE ITENS:" unFocusColor="BLACK" />
             <JFXTextField fx:id="txtUsuarioPedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="23.0" prefHeight="25.0" prefWidth="234.0" promptText="USUARIO:" unFocusColor="BLACK" />
-            <JFXTextField fx:id="txtClientePedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="107.0" prefHeight="25.0" prefWidth="234.0" promptText="CLIENTE:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtClientePedido" editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="95.0" prefHeight="25.0" prefWidth="234.0" promptText="CLIENTE:" unFocusColor="BLACK" />
             <JFXComboBox fx:id="boxFiltro" editable="true" labelFloat="true" layoutX="384.0" layoutY="201.0" prefHeight="25.0" prefWidth="184.0" promptText="FILTRAR POR:" />
-            <JFXTextField fx:id="txtIntervalo" labelFloat="true" layoutX="384.0" layoutY="264.0" prefHeight="25.0" prefWidth="184.0" promptText="INTERVALO:" />
+            <JFXTextField fx:id="txtIntervalo" labelFloat="true" layoutX="384.0" layoutY="264.0" onKeyReleased="#eventReleasedIntervalo" prefHeight="25.0" prefWidth="184.0" promptText="INTERVALO:" />
+            <JFXTextField fx:id="txtPagamento" editable="false" focusColor="#05133c" labelFloat="true" layoutX="9.0" layoutY="264.0" prefHeight="25.0" prefWidth="132.0" promptText="PAGAMENTO:" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txtCpfCliente" editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="146.0" prefHeight="25.0" prefWidth="234.0" promptText="CPF:" unFocusColor="BLACK" />
          </children>
       </Pane>
       <TableView fx:id="tblPedidos" layoutX="14.0" layoutY="478.0" onMouseClicked="#eventClickTblPedidos" prefHeight="322.0" prefWidth="668.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="475.0">
@@ -44,7 +46,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <TextField fx:id="txtBuscarPedido" alignment="CENTER" layoutX="62.0" layoutY="435.0" onKeyPressed="#eventPressedBuscarPedido" prefHeight="32.0" prefWidth="444.0" promptText="BUSCAR PEDIDO DATA" style="-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #1E90FF;" />
+      <TextField fx:id="txtBuscarPedido" alignment="CENTER" layoutX="62.0" layoutY="435.0" onKeyPressed="#eventPressedBuscarPedido" prefHeight="32.0" prefWidth="444.0" promptText="BUSCAR POR NOME" style="-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #1E90FF;" />
       <Button fx:id="btnBuscarPedido" layoutX="520.0" layoutY="435.0" mnemonicParsing="false" onAction="#eventBuscarPedido" prefHeight="32.0" prefWidth="77.0" style="-fx-border-radius: 15px; -fx-background-radius: 15px;" text="Buscar" />
       <AnchorPane id="header" layoutX="32.0" layoutY="-7.0" prefHeight="91.0" prefWidth="1318.0" AnchorPane.bottomAnchor="711.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

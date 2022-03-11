@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Pedido;
@@ -18,16 +21,18 @@ public class DAOHistoricoDeVendas {
 
 	private Connection connection = null;
 	
-	public List<Pedido> BuscarPedidos(String data) {
+	public List<Pedido> BuscarPedidos(String [] intervaloData, String filtro, String search) {
 		try {
 			List<Pedido> listaDePedidos = new ArrayList<Pedido>();
 			String sql = "select pedido.idPedido, pedido.dataPedido, pedido.precoTotal, pedido.quantidadeTotal, pedido.pagamento, cliente.nome as cliente, usuario.nome as usuario\r\n"
-					+ "from pedido \r\n"
+					+ "from pedido\r\n"
 					+ "inner join usuario on usuario.ID = pedido.idUsuario\r\n"
-					+ "left join cliente on cliente.ID = pedido.idCliente where pedido.dataPedido = ?;";
+					+ "left join cliente on cliente.ID = pedido.idCliente where pedido.dataPedido >= ? and pedido.dataPedido <= ? and "+filtro+" like ? ;";
 			connection = SingleConnection.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, data);
+			statement.setString(1, intervaloData[0]);
+			statement.setString(2, intervaloData[1]);
+			statement.setString(3, search+"%");
 			
 			ResultSet resultSet = statement.executeQuery();
 			
@@ -43,7 +48,8 @@ public class DAOHistoricoDeVendas {
 				List<itemPedido> itemPedidos = this.listarItemPedido(resultSet.getInt("idPedido"));
 				
 				pedido.setIdPedido(resultSet.getInt("idPedido"));
-				pedido.setData(resultSet.getString("dataPedido"));
+				pedido.setData(LocalDate.parse(resultSet.getString("dataPedido"), DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+				
 				pedido.setPrecoTotal(resultSet.getDouble("precoTotal"));
 				pedido.setQuantidadeTotal(resultSet.getInt("quantidadeTotal"));
 				pedido.setPagamento(resultSet.getInt("pagamento"));

@@ -7,12 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.projeto.sistemafarmacia.dao.DAOHistoricoDeVendas;
 import com.projeto.sistemafarmacia.model.Pedido;
 import com.projeto.sistemafarmacia.model.Produto;
 import com.projeto.sistemafarmacia.model.itemPedido;
+import com.projeto.sistemafarmacia.util.TextFieldFormatter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +41,9 @@ public class HistoricoDeVendasController implements Initializable {
 	private ObservableList<Produto> observableListItemPedidoProdutos = FXCollections.observableArrayList();
 	private DAOHistoricoDeVendas daoHistoricoDeVendas = new DAOHistoricoDeVendas();
 	private Pedido pedidoSelecionado = new Pedido();
+	
+	private List<String> listBoxFiltro = new ArrayList<String>();
+	private ObservableList<String> observalBoxFiltro;
 
 	@FXML
 	private JFXTextField txtClientePedido;
@@ -46,6 +53,9 @@ public class HistoricoDeVendasController implements Initializable {
 
 	@FXML
 	private JFXTextField txtId;
+	
+	@FXML
+    private JFXTextField txtPagamento;
 
 	@FXML
 	private JFXTextField txtQuantPedido;
@@ -79,6 +89,9 @@ public class HistoricoDeVendasController implements Initializable {
 
 	@FXML
 	private TableColumn<Pedido, String> colunmUsuarioTblPedidos;
+	
+	@FXML
+    private JFXComboBox<String> boxFiltro;
 
 	@FXML
 	private JFXButton btnSair;
@@ -88,10 +101,23 @@ public class HistoricoDeVendasController implements Initializable {
 
 	@FXML
 	private TextField txtBuscarPedido;
+	
+	@FXML
+    private JFXTextField txtIntervalo;
+	
+	@FXML
+	void eventReleasedIntervalo(KeyEvent event) {
+		TextFieldFormatter formatter = new TextFieldFormatter();
+    	formatter.setMask("##/##/####-##/##/####");
+    	formatter.setCaracteresValidos("0123456789");
+    	formatter.setTf(txtIntervalo);
+    	formatter.formatter();
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		montarColunas();
+		carregarBoxFiltro();
 
 	}
 
@@ -109,12 +135,25 @@ public class HistoricoDeVendasController implements Initializable {
 
 	@FXML
 	void eventBuscarPedido(ActionEvent event) {
-		String dataTxt = txtBuscarPedido.getText();
+		try {
+		String filtro = "";
+		
+		if(boxFiltro.getSelectionModel().getSelectedItem().equalsIgnoreCase("CLIENTE")) {
+			filtro="cliente.nome";
+		}else if(boxFiltro.getSelectionModel().getSelectedItem().equalsIgnoreCase("USUARIO")) {
+			filtro = "usuario.nome";
+		}
+		
+		String [] dataIntervalo = formatarIntervaloData(txtIntervalo.getText());
+		String search = txtBuscarPedido.getText();
 
-		LocalDate dataFormatada = LocalDate.parse(dataTxt, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-		listaDePedidos = daoHistoricoDeVendas.BuscarPedidos(dataFormatada.toString());
+		listaDePedidos = daoHistoricoDeVendas.BuscarPedidos(dataIntervalo, filtro,search );
 		AtualizarTblPedidos();
+		
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao efetuar busca de pedidos, causa: "+e.getMessage()+"ERRO!", "",1);
+		}
 		
 	}
 
@@ -170,5 +209,34 @@ public class HistoricoDeVendasController implements Initializable {
 		txtId.setText(Integer.toString(pedidoSelecionado.getIdPedido()));
 		txtQuantPedido.setText(Integer.toString(pedidoSelecionado.getQuantidadeTotal()));
 		txtValPedido.setText(Double.toString(pedidoSelecionado.getPrecoTotal()));
+		if(pedidoSelecionado.getPagamento() == 1) {
+			txtPagamento.setText("CREDITO");
+		}else {
+			txtPagamento.setText("DEBITO");
+		}
+	}
+	
+	public void carregarBoxFiltro() {
+		
+		listBoxFiltro.add("CLIENTE");
+		listBoxFiltro.add("USUARIO");
+		
+		observalBoxFiltro =FXCollections.observableArrayList(listBoxFiltro);
+		
+		boxFiltro.getItems().setAll(observalBoxFiltro);
+		boxFiltro.getSelectionModel().selectFirst();
+	}
+	
+	public String [] formatarIntervaloData(String intervalo) {//20/21/2022-
+		String [] dataTemp = intervalo.split("\\-");
+		
+		
+		System.out.println(LocalDate.parse(dataTemp[0], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		System.out.println( LocalDate.parse(dataTemp[1], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
+		
+		
+		String [] dataFormatada= {LocalDate.parse(dataTemp[0], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(),LocalDate.parse(dataTemp[1], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()};
+		
+		return dataFormatada;
 	}
 }
