@@ -43,7 +43,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class LancamentoDeVendasController implements Initializable, InterfaceCRUD<Produto>{
+public class CadastroDeVendasController implements Initializable, InterfaceCRUD<Produto>{
 
 	private DAOProduto daoProduto = new DAOProduto();
 	private DAOCliente daoCliente = new DAOCliente();

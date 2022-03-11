@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="header" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="802.0" prefWidth="1318.0" style="-fx-background-color: #DCDCDC;" stylesheets="@../styles/StyleLancamento.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.LancamentoDeVendasController">
+<AnchorPane id="header" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="802.0" prefWidth="1318.0" style="-fx-background-color: #DCDCDC;" stylesheets="@../styles/StyleLancamento.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projeto.sistemafarmacia.controllers.CadastroDeVendasController">
    <children>
       <AnchorPane layoutX="4.0" layoutY="80.0" prefHeight="352.0" prefWidth="669.0" style="-fx-background-color: #fff;">
          <children>

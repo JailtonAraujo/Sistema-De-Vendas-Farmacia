@@ -237,12 +237,8 @@ public class HistoricoDeVendasController implements Initializable {
 		boxFiltro.getSelectionModel().selectFirst();
 	}
 	
-	public String [] formatarIntervaloData(String intervalo) {//20/21/2022-
+	public String [] formatarIntervaloData(String intervalo) {
 		String [] dataTemp = intervalo.split("\\-");
-		
-		
-		System.out.println(LocalDate.parse(dataTemp[0], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
-		System.out.println( LocalDate.parse(dataTemp[1], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString());
 		
 		
 		String [] dataFormatada= {LocalDate.parse(dataTemp[0], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(),LocalDate.parse(dataTemp[1], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()};

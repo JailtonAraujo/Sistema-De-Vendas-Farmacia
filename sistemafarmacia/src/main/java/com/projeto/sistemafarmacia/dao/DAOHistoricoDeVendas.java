@@ -27,7 +27,7 @@ public class DAOHistoricoDeVendas {
 			String sql = "select pedido.idPedido, pedido.dataPedido, pedido.precoTotal, pedido.quantidadeTotal, pedido.pagamento, cliente.nome as cliente, cliente.cpf, usuario.nome as usuario\r\n"
 					+ "from pedido\r\n"
 					+ "inner join usuario on usuario.ID = pedido.idUsuario\r\n"
-					+ "left join cliente on cliente.ID = pedido.idCliente where pedido.dataPedido >= ? and pedido.dataPedido <= ? and "+filtro+" like ? ;";
+					+ "left join cliente on cliente.ID = pedido.idCliente where pedido.dataPedido >= ? and pedido.dataPedido <= ? and "+filtro+" like ? order by pedido.dataPedido;";
 			connection = SingleConnection.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, intervaloData[0]);
