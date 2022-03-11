@@ -24,7 +24,7 @@ public class DAOHistoricoDeVendas {
 	public List<Pedido> BuscarPedidos(String [] intervaloData, String filtro, String search) {
 		try {
 			List<Pedido> listaDePedidos = new ArrayList<Pedido>();
-			String sql = "select pedido.idPedido, pedido.dataPedido, pedido.precoTotal, pedido.quantidadeTotal, pedido.pagamento, cliente.nome as cliente, usuario.nome as usuario\r\n"
+			String sql = "select pedido.idPedido, pedido.dataPedido, pedido.precoTotal, pedido.quantidadeTotal, pedido.pagamento, cliente.nome as cliente, cliente.cpf, usuario.nome as usuario\r\n"
 					+ "from pedido\r\n"
 					+ "inner join usuario on usuario.ID = pedido.idUsuario\r\n"
 					+ "left join cliente on cliente.ID = pedido.idCliente where pedido.dataPedido >= ? and pedido.dataPedido <= ? and "+filtro+" like ? ;";
@@ -44,6 +44,7 @@ public class DAOHistoricoDeVendas {
 				
 				Cliente cliente = new Cliente();
 				cliente.setNome(resultSet.getString("cliente"));
+				cliente.setCpf(resultSet.getLong("cpf"));
 				
 				List<itemPedido> itemPedidos = this.listarItemPedido(resultSet.getInt("idPedido"));
 				

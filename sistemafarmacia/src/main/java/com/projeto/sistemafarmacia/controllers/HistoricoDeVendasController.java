@@ -1,6 +1,7 @@
 package com.projeto.sistemafarmacia.controllers;
 
 import java.net.URL;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import com.projeto.sistemafarmacia.dao.DAOHistoricoDeVendas;
 import com.projeto.sistemafarmacia.model.Pedido;
 import com.projeto.sistemafarmacia.model.Produto;
 import com.projeto.sistemafarmacia.model.itemPedido;
+import com.projeto.sistemafarmacia.util.FormatCadastrarExibir;
 import com.projeto.sistemafarmacia.util.TextFieldFormatter;
 
 import javafx.collections.FXCollections;
@@ -65,6 +67,9 @@ public class HistoricoDeVendasController implements Initializable {
 
 	@FXML
 	private JFXTextField txtValPedido;
+	
+	@FXML
+    private JFXTextField txtCpfCliente;
 
 	@FXML
 	private TableView<Produto> tblProdutosPedido;
@@ -204,6 +209,11 @@ public class HistoricoDeVendasController implements Initializable {
 		}
 		
 		txtClientePedido.setText(pedidoSelecionado.getCliente().getNome());
+		try {
+			txtCpfCliente.setText(new FormatCadastrarExibir().cpfToExbir((pedidoSelecionado.getCliente().getCpf())));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		txtUsuarioPedido.setText(pedidoSelecionado.getUsuario().getNome());
 		txtData.setText(pedidoSelecionado.getData());
 		txtId.setText(Integer.toString(pedidoSelecionado.getIdPedido()));
