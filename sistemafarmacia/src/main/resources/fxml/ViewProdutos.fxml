@@ -17,17 +17,17 @@
    <children>
       <AnchorPane layoutY="91.0" prefHeight="228.0" prefWidth="1163.0" style="-fx-background-color: #D3D3D3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0">
          <children>
-            <JFXTextField fx:id="txtId" focusColor="#0cb5d3" labelFloat="true" layoutX="37.0" layoutY="29.0" onKeyReleased="#eventReleaseId" prefHeight="30.0" prefWidth="226.0" promptText="ID:" unFocusColor="BLACK">
+            <JFXTextField fx:id="txtId" focusColor="#0cb5d3" labelFloat="true" layoutX="47.0" layoutY="101.0" onKeyReleased="#eventReleaseId" prefHeight="30.0" prefWidth="226.0" promptText="CODIGO DO PRODUTO:" unFocusColor="BLACK">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtNome" focusColor="#0cb5d3" labelFloat="true" layoutX="37.0" layoutY="88.0" prefHeight="25.0" prefWidth="226.0" promptText="NOME:" unFocusColor="BLACK">
+            <JFXTextField fx:id="txtNome" focusColor="#0cb5d3" labelFloat="true" layoutX="47.0" layoutY="160.0" prefHeight="25.0" prefWidth="226.0" promptText="NOME:" unFocusColor="BLACK">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtDescricao" focusColor="#0cb5d3" labelFloat="true" layoutX="37.0" layoutY="151.0" prefHeight="25.0" prefWidth="226.0" promptText="DESCRIÇÃO:" unFocusColor="BLACK">
+            <JFXTextField fx:id="txtDescricao" focusColor="#0cb5d3" labelFloat="true" layoutX="441.0" layoutY="160.0" prefHeight="25.0" prefWidth="226.0" promptText="DESCRIÇÃO:" unFocusColor="BLACK">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -47,6 +47,11 @@
                   <Font size="13.0" />
                </font>
             </Label>
+            <JFXTextField fx:id="txtIdTable" editable="false" focusColor="#0cb5d3" labelFloat="true" layoutX="47.0" layoutY="27.0" onKeyReleased="#eventReleaseId" prefHeight="30.0" prefWidth="121.0" promptText="ID:" unFocusColor="BLACK">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXTextField>
          </children>
       </AnchorPane>
       <HBox id="back-page" alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="91.0" prefWidth="1161.0" stylesheets="@../styles/StyleUsuario.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
@@ -102,23 +107,23 @@
             </JFXButton>
          </children>
       </HBox>
-      <TableView fx:id="tblUsuario" layoutX="1.0" layoutY="389.0" prefHeight="321.0" prefWidth="1161.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="440.0">
+      <TableView fx:id="tblProduto" layoutX="1.0" layoutY="389.0" onMouseClicked="#clickTableProduto" prefHeight="321.0" prefWidth="1161.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="440.0">
         <columns>
-          <TableColumn prefWidth="232.0" text="ID" />
-          <TableColumn prefWidth="232.0" text="NOME" />
-            <TableColumn prefWidth="232.0" text="DESCRIÇÃO" />
-            <TableColumn prefWidth="232.0" text="ESTOQUE" />
-            <TableColumn prefWidth="232.0" text="PREÇO" />
+          <TableColumn fx:id="columnIdTableProduto" prefWidth="232.0" text="ID" />
+          <TableColumn fx:id="columnNomeTableProduto" prefWidth="232.0" text="NOME" />
+            <TableColumn fx:id="columnDescricaoTableProduto" prefWidth="232.0" text="DESCRIÇÃO" />
+            <TableColumn fx:id="columnEstoqueTableProduto" prefWidth="232.0" text="ESTOQUE" />
+            <TableColumn fx:id="columnPrecoTableProduto" prefWidth="232.0" text="PREÇO" />
         </columns>
       </TableView>
       <HBox id="back-page" alignment="CENTER" layoutY="395.0" prefHeight="47.0" prefWidth="1163.0" stylesheets="@../styles/StyleUsuario.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <TextField fx:id="txtBusca" alignment="CENTER" prefHeight="35.0" prefWidth="659.0" promptText="BUSCAR POR NOME" style="-fx-background-radius: 15;">
+            <TextField fx:id="txtBusca" alignment="CENTER" onKeyReleased="#releasedTxtBusca" prefHeight="35.0" prefWidth="659.0" promptText="BUSCAR POR NOME" style="-fx-background-radius: 15;">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </TextField>
-            <Button id="btnPesquisar" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" text="BUSCAR">
+            <Button id="btnPesquisar" fx:id="btnBusca" mnemonicParsing="false" onAction="#actionBuscarProduto" prefHeight="39.0" prefWidth="90.0" text="BUSCAR">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

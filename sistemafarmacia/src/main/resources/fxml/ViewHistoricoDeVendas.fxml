@@ -26,6 +26,11 @@
             <JFXTextField fx:id="txtIntervalo" labelFloat="true" layoutX="384.0" layoutY="264.0" onKeyReleased="#eventReleasedIntervalo" prefHeight="25.0" prefWidth="184.0" promptText="INTERVALO:" />
             <JFXTextField fx:id="txtPagamento" editable="false" focusColor="#05133c" labelFloat="true" layoutX="9.0" layoutY="264.0" prefHeight="25.0" prefWidth="132.0" promptText="PAGAMENTO:" unFocusColor="BLACK" />
             <JFXTextField fx:id="txtCpfCliente" editable="false" focusColor="#05133c" labelFloat="true" layoutX="334.0" layoutY="140.0" prefHeight="25.0" prefWidth="168.0" promptText="CPF:" unFocusColor="BLACK" />
+            <JFXButton fx:id="btnImprimirRelatorio" buttonType="RAISED" layoutX="195.0" layoutY="291.0" onAction="#actionImprimirRealtorio" prefHeight="25.0" prefWidth="147.0" style="-fx-background-color: #483D8B;" text="IMPRIMIR RELATORIO" textFill="#f5f5f5">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
          </children>
       </Pane>
       <TableView fx:id="tblPedidos" layoutX="14.0" layoutY="478.0" onMouseClicked="#eventClickTblPedidos" prefHeight="322.0" prefWidth="668.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="475.0">

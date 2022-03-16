@@ -1,5 +1,7 @@
 package com.projeto.sistemafarmacia.controllers;
 
+import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import com.projeto.sistemafarmacia.model.Produto;
 import com.projeto.sistemafarmacia.model.itemPedido;
 import com.projeto.sistemafarmacia.util.FormatCadastrarExibir;
 import com.projeto.sistemafarmacia.util.TextFieldFormatter;
+import com.projeto.sistemafarmacia.util.reportUtil;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +37,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 public class HistoricoDeVendasController implements Initializable {
 
@@ -100,6 +104,9 @@ public class HistoricoDeVendasController implements Initializable {
 
 	@FXML
 	private JFXButton btnSair;
+	
+	@FXML
+	private JFXButton btnImprimirRelatorio;
 
 	@FXML
 	private Button btnBuscarPedido;
@@ -109,6 +116,20 @@ public class HistoricoDeVendasController implements Initializable {
 	
 	@FXML
     private JFXTextField txtIntervalo;
+	
+	@FXML
+    void actionImprimirRealtorio(ActionEvent event) {
+		if(!listaDePedidos.isEmpty() && listaDePedidos.size() > 1) {
+			try {
+				String pathRelatorio = new File("src\\main\\java\\com\\projeto\\sistemafarmacia\\relatorios\\rel-vendas.jasper").getAbsolutePath();
+			new reportUtil().imprimiRelatorio(listaDePedidos, pathRelatorio);
+			}catch(JRException e) {
+				JOptionPane.showMessageDialog(null, "Erro ao imprimir Relatorio, Causa: "+e.getMessage(), "Erro!", 1);
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Relatorio Vazio!","ERRO!",1);
+		}
+    }
 	
 	@FXML
 	void eventReleasedIntervalo(KeyEvent event) {
