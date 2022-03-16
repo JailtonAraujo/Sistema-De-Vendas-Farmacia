@@ -16,18 +16,28 @@ import com.projeto.sistemafarmacia.dao.DAOProduto;
 import com.projeto.sistemafarmacia.model.Produto;
 import com.projeto.sistemafarmacia.util.TextFieldFormatter;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
-
 	
-	  @FXML
+	private DAOProduto daoProduto = new DAOProduto();
+	List<Produto> listaDeProdutos = null;
+	ObservableList<Produto> observableListProdutos = FXCollections.observableArrayList();
+	
+		@FXML
 	    private JFXButton btnEditar;
 
 	    @FXML
@@ -43,7 +53,22 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	    private JFXButton btnSalvar;
 
 	    @FXML
-	    private TableView<?> tblUsuario;
+	    private TableView<Produto> tblProduto;
+	    
+	    @FXML
+	    private TableColumn<Produto, Long> columnIdTableProduto;
+	    
+	    @FXML
+	    private TableColumn<Produto, String> columnNomeTableProduto;
+	    
+	    @FXML
+	    private TableColumn<Produto, String> columnDescricaoTableProduto;
+	    
+	    @FXML
+	    private TableColumn<Produto, Integer> columnEstoqueTableProduto;
+	    
+	    @FXML
+	    private TableColumn<Produto, Double> columnPrecoTableProduto;
 
 	    @FXML
 	    private TextField txtBusca;
@@ -53,6 +78,9 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 
 	    @FXML
 	    private JFXTextField txtEstoque;
+	    
+	    @FXML
+	    private JFXTextField txtIdTable;
 
 	    @FXML
 	    private JFXTextField txtId;
@@ -62,8 +90,28 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 
 	    @FXML
 	    private JFXTextField txtPreco;
+	    
+	    @FXML
+	    private Button btnBusca;
+	    
+	    @FXML
+	    void clickTableProduto(MouseEvent event) {
+	    	setarCompos();
+	    }
+	    
+	    @FXML
+	    void actionBuscarProduto(ActionEvent event) {
+	    	listaDeProdutos = daoProduto.buscarProdutosPorNome(txtBusca.getText());
+	    	atualizarTabela();
+	    }
 
-	    private DAOProduto daoProduto = new DAOProduto();
+	    @FXML
+	    void releasedTxtBusca(KeyEvent event) {
+	    	if(event.getCode() == KeyCode.ENTER) {
+	    		listaDeProdutos = daoProduto.buscarProdutosPorNome(txtBusca.getText());
+		    	atualizarTabela();
+	    	}
+	    }
 	    
 
 	    @FXML
@@ -114,7 +162,7 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		this.MontarColunas();
 		
 	}
 
@@ -172,13 +220,34 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 
 	@Override
 	public void atualizarTabela() {
-		// TODO Auto-generated method stub
+		observableListProdutos.clear();
+		for (Produto produto : listaDeProdutos) {
+			observableListProdutos.add(produto);
+		}
+		
+		tblProduto.getItems().setAll(observableListProdutos);
+		tblProduto.getSelectionModel().selectFirst();
 	}
 
 	@Override
 	public void setarCompos() {
-		// TODO Auto-generated method stub
+		Produto produto = new Produto();
+		produto = tblProduto.getSelectionModel().getSelectedItem();
 		
+		txtId.setText(Long.toString(produto.getId()));
+		txtIdTable.setText(Integer.toString(produto.getIdTabela()));
+		txtEstoque.setText(Integer.toString(produto.getEstoque()));
+		txtNome.setText(produto.getNome());
+		txtDescricao.setText(produto.getDescricao());
+		txtPreco.setText(Double.toString(produto.getPreco()));
+	}
+	
+	public void MontarColunas() {
+		columnDescricaoTableProduto.setCellValueFactory(new PropertyValueFactory("descricao"));
+		columnEstoqueTableProduto.setCellValueFactory(new PropertyValueFactory("estoque"));
+		columnIdTableProduto.setCellValueFactory(new PropertyValueFactory("id"));
+		columnNomeTableProduto.setCellValueFactory(new PropertyValueFactory("nome"));
+		columnPrecoTableProduto.setCellValueFactory(new PropertyValueFactory("preco"));
 	}
 
 }

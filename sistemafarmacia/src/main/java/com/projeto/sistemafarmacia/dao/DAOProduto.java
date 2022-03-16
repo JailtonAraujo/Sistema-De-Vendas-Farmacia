@@ -34,7 +34,6 @@ public class DAOProduto {
 			statement.execute();
 			connection.commit();
 			statement.close();
-			connection.close();
 			
 			return true;
 			
@@ -47,6 +46,8 @@ public class DAOProduto {
 			}
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Causa: "+ex.getMessage(), "ERRO AO CADASTRAR PRODUTO!", 0);
+		}finally {
+			SingleConnection.closeConection();
 		}
 		return false;
 	}
@@ -57,7 +58,7 @@ public class DAOProduto {
 			
 			connection = SingleConnection.getConnection();
 			
-			String sql = "select * from produto where nome like ?;";
+			String sql = "select idTabela, nome, descricao, estoque, preco, idproduto from produto where nome like ?;";
 			
 			List<Produto> produtos = new ArrayList<Produto>();
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -79,15 +80,42 @@ public class DAOProduto {
 			}
 			
 			statement.close();
-			connection.close();
 			return produtos;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			SingleConnection.closeConection();
 		}
 		
 		
 		return null;
+	}
+	
+	public boolean excluirProduto(int idTableProduto) {
+		try {
+			connection = SingleConnection.getConnection();
+			
+			String sql = "delete from produto where idtabela = ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, idTableProduto);
+			
+			statement.executeUpdate();
+			connection.commit();
+			statement.close();
+			return true;
+			
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			SingleConnection.closeConection();
+		}
+		return false;
 	}
 	
 }
