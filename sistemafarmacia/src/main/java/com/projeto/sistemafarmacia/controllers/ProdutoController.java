@@ -36,6 +36,7 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	private DAOProduto daoProduto = new DAOProduto();
 	List<Produto> listaDeProdutos = null;
 	ObservableList<Produto> observableListProdutos = FXCollections.observableArrayList();
+	Produto produtoSelecionado = new Produto();
 	
 		@FXML
 	    private JFXButton btnEditar;
@@ -93,6 +94,26 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	    
 	    @FXML
 	    private Button btnBusca;
+	    
+	    @FXML
+	    void actionExcluirProduto(ActionEvent event) {
+	    	
+			if (produtoSelecionado.getIdTabela() > 0) {
+
+				int opc = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR O PRODUTO SELECIONADO?",
+						"ATENÇÃO", 1);
+
+				if (opc == 0) {
+					if (daoProduto.excluirProduto(tblProduto.getSelectionModel().getSelectedItem().getIdTabela())) {
+						JOptionPane.showMessageDialog(null, "PRODUTO EXCLUIDO COM SUCESSO!", "SUCESSO!",1);
+					}
+
+				}
+
+			}else {
+				JOptionPane.showMessageDialog(null, "NENHUM PRODUTO FOI SELECIONADO!", "ERRO!",0);
+			}
+		}
 	    
 	    @FXML
 	    void clickTableProduto(MouseEvent event) {
@@ -153,7 +174,7 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	    		JOptionPane.showMessageDialog(null, "Dados inválidos, confira-os!", "ERRO!", 0);
 	    	}else {
 	    	if(daoProduto.Insert(ObterModelo())) {
-	    		JOptionPane.showMessageDialog(null, "Produto Cadastrado Com Sucesso!");
+	    		JOptionPane.showMessageDialog(null, "Produto salvo Com Sucesso!");
 	    		this.LimparCampos();
 	    	}else {}		
 	    	}
@@ -180,6 +201,10 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 		
 		if(ValidarCampo(dados)) {
 			produto = new Produto(Long.valueOf(id), nome, descricao, Integer.valueOf(estoque), Double.valueOf(preco));
+			
+			if(txtIdTable.getText() != null && !txtIdTable.getText().isEmpty()) {
+				produto.setIdTabela(Integer.parseInt(txtIdTable.getText()));
+			}
 			
 			return produto;
 		}else {
@@ -233,6 +258,7 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	public void setarCompos() {
 		Produto produto = new Produto();
 		produto = tblProduto.getSelectionModel().getSelectedItem();
+		produtoSelecionado = produto;
 		
 		txtId.setText(Long.toString(produto.getId()));
 		txtIdTable.setText(Integer.toString(produto.getIdTabela()));

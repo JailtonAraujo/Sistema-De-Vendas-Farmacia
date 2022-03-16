@@ -20,18 +20,33 @@ public class DAOProduto {
 		try {
 			
 			connection = SingleConnection.getConnection();
+			PreparedStatement statement = null;
 			
+			if(produto.getIdTabela() > 0) {
+				String sql = "update produto set idproduto = ?, nome = ?, descricao = ?, estoque = ?, preco = ? where idtabela = ?";
+				
+				statement = connection.prepareStatement(sql);
+				statement.setLong(1, produto.getId());
+				statement.setString(2, produto.getNome());
+				statement.setString(3, produto.getDescricao());
+				statement.setInt(4, produto.getEstoque());
+				statement.setDouble(5, produto.getPreco());
+				statement.setInt(6, produto.getIdTabela());
+				
+				statement.executeUpdate();
+			}else {
 			String sql = "insert into produto (idproduto, nome, descricao, estoque, preco) values (?, ?, ?, ?, ?)";
 			
-			PreparedStatement statement = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql);
 			statement.setLong(1, produto.getId());
 			statement.setString(2, produto.getNome());
 			statement.setString(3, produto.getDescricao());
 			statement.setInt(4, produto.getEstoque());
 			statement.setDouble(5, produto.getPreco());
 			
-			
 			statement.execute();
+			}
+			
 			connection.commit();
 			statement.close();
 			
@@ -45,7 +60,7 @@ public class DAOProduto {
 				e.printStackTrace();
 			}
 			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Causa: "+ex.getMessage(), "ERRO AO CADASTRAR PRODUTO!", 0);
+			JOptionPane.showMessageDialog(null, "Causa: "+ex.getMessage(), "ERRO AO SALVAR PRODUTO!", 0);
 		}finally {
 			SingleConnection.closeConection();
 		}
@@ -112,6 +127,7 @@ public class DAOProduto {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Causa: "+e.getMessage(), "ERRO AO EXCLUIR PRODUTO!", 0);
 		}finally {
 			SingleConnection.closeConection();
 		}

@@ -70,7 +70,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton id="btn-opc" fx:id="btnExcluir" buttonType="RAISED" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #DC143C; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="EXCLUIR">
+            <JFXButton id="btn-opc" fx:id="btnExcluir" buttonType="RAISED" onAction="#actionExcluirProduto" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #DC143C; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="EXCLUIR">
                <HBox.margin>
                   <Insets left="20.0" right="110.0" />
                </HBox.margin>
