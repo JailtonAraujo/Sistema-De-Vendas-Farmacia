@@ -55,10 +55,6 @@ public class Contato {
 		this.idPessoa = idPessoa;
 	}
 
-	public void setTelefone(Long telefone) {
-		this.telefone = telefone;
-	}
-
 	@Override
 	public String toString() {
 		return "Contato [ID=" + ID + ", telefone=" + telefone + ", email=" + email + ", idPessoa=" + idPessoa + "]";

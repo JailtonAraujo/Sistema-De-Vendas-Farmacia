@@ -52,11 +52,11 @@ public class Endereco {
 	}
 
 	public String getLogradouro() {
-		return Logradouro;
+		return this.Logradouro;
 	}
 
 	public void setLogradouro(String logradouro) {
-		Logradouro = logradouro;
+		this.Logradouro = logradouro;
 	}
 
 	public String getCidade() {

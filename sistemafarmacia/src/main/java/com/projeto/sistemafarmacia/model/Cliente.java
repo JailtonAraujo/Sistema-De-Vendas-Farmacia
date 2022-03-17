@@ -25,18 +25,12 @@ public class Cliente extends Pessoa {
 	public Cliente() {
 	}
 
-	/*
-	
-	@Override
-	public String toString() {
-		return "Cliente [cpf=" + cpf + ", getEndereco()=" + getEndereco() + ", getContato()=" + getContato()
-				+ ", getID()=" + getID() + ", getNome()=" + getNome()+"]";
-	}
-	*/
 	@Override
 	public String toString() {
 		return getNome();
 	}
+	
+	
 
 	
 

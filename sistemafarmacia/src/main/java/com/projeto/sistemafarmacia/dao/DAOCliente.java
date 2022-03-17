@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.projeto.sistemafarmacia.model.Cliente;
+import com.projeto.sistemafarmacia.model.Contato;
+import com.projeto.sistemafarmacia.model.Endereco;
 
 public class DAOCliente {
 
@@ -102,15 +104,73 @@ public class DAOCliente {
 			}
 			
 			statement.close();
-			connection.close();
 			
 			return listCliente;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			SingleConnection.closeConection();
 		}
 		
 		return null;
 	}
+	
+	
+public List<Cliente> listarClientes(String search) {
+		
+		try {
+			
+			connection = SingleConnection.getConnection();
+			List<Cliente> listCliente = new ArrayList<Cliente>();
+			
+			String sql = "select cliente.ID as idCLiente, cliente.nome, cliente.cpf, endereco.id as idEndereco, endereco.logradouro, endereco.cidade, endereco.numero, contato.ID as idContato,\r\n"
+					+ "contato.email,contato.telefone\r\n"
+					+ "from cliente\r\n"
+					+ "inner join endereco on cliente.idendereco = endereco.id\r\n"
+					+ "inner join contato on cliente.idcontato = contato.ID\r\n"
+					+ "where cliente.nome like ?;";
+			
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, search+"%");
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				Cliente cliente = new Cliente();
+				Endereco endereco = new Endereco();
+				Contato contato = new Contato();
+				
+				contato.setID(resultSet.getInt("idContato"));
+				contato.setEmail(resultSet.getString("email"));
+				contato.setTelefone(resultSet.getLong("telefone"));
+				
+				endereco.setID(resultSet.getInt("idEndereco"));
+				endereco.setCidade(resultSet.getString("cidade"));
+				endereco.setLogradouro(resultSet.getString("logradouro"));
+				endereco.setNumero(resultSet.getInt("numero"));
+				
+				cliente.setID(resultSet.getInt("idCLiente"));
+				cliente.setCpf(resultSet.getLong("cpf"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setContato(contato);
+				cliente.setEndereco(endereco);
+				
+				listCliente.add(cliente);
+			}
+			
+			statement.close();
+			
+			return listCliente;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			SingleConnection.closeConection();
+		}
+		
+		return null;
+	}
+
 	
 }

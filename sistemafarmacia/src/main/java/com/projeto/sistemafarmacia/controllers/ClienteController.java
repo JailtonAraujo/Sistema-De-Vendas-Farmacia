@@ -1,12 +1,13 @@
 package com.projeto.sistemafarmacia.controllers;
 
 import java.net.URL;
-import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -18,19 +19,53 @@ import com.projeto.sistemafarmacia.model.Endereco;
 import com.projeto.sistemafarmacia.util.FormatCadastrarExibir;
 import com.projeto.sistemafarmacia.util.TextFieldFormatter;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ClienteController implements Initializable, InterfaceCRUD<Cliente> {
+	
+	private DAOCliente daoCliente = new DAOCliente(); 
+	private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	private ObservableList<Cliente> observableListClientes =  FXCollections.observableArrayList();
+	private FormatCadastrarExibir format = new FormatCadastrarExibir();
+	private Cliente clienteSelecionado = new Cliente();
 
+	@FXML
+    private TableView<Cliente> tblUsuario;
+	
+	@FXML
+    private TableColumn<Cliente, Integer> columnIdTblCLiente;
+	
+	@FXML
+    private TableColumn<Cliente, String > columnNomeTblCliente;
+	
+	@FXML
+    private TableColumn<Cliente, Long> columnCpfTblCliente;
+	
+	@FXML
+    private TableColumn<Cliente, String> columnLogradouroTblCliente;
+	
+	@FXML
+	private TableColumn<Cliente, String> columnTelefoneTblCliente;
+	
 	@FXML
 	private JFXTextField txtCidade;
 
@@ -57,16 +92,40 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 
 	@FXML
 	private JFXButton btnSair;
-
 	
-	private DAOCliente daoCliente = new DAOCliente(); 
+	@FXML
+	private Button btnBusca;
+	
+	@FXML
+    private TextField txtBusca;
 	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		montarColunas();
 
 	}
+	
+	@FXML
+    void onMouseClickTable(MouseEvent event) {
+		clienteSelecionado = listaClientes.get(tblUsuario.getSelectionModel().getSelectedIndex());
+		setarCompos();
+    }
+	
+	@FXML
+    void actionBtnBuscar(ActionEvent event) {
+		listaClientes = daoCliente.listarClientes(txtBusca.getText());
+		atualizarTabela();
+    }
+
+	
+	@FXML
+    void releasedBuscarCliente(KeyEvent event) {
+		if(event.getCode() == KeyCode.ENTER) {
+			listaClientes = daoCliente.listarClientes(txtBusca.getText());
+			atualizarTabela();
+		}
+    }
 	
 	@FXML
     void eventReleased(KeyEvent event) {
@@ -202,15 +261,44 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 		
 		return validado;
 	}
+	
+	public void montarColunas() {
+		columnNomeTblCliente.setCellValueFactory(new PropertyValueFactory("Nome"));
+		columnCpfTblCliente.setCellValueFactory(new PropertyValueFactory("cpf"));
+		columnIdTblCLiente.setCellValueFactory(new PropertyValueFactory("ID"));
+		
+		
+		columnLogradouroTblCliente.setCellValueFactory((Param)-> new SimpleStringProperty (Param.getValue().getEndereco().getLogradouro()));
+		columnTelefoneTblCliente.setCellValueFactory( (Param)-> new SimpleStringProperty(Long.toString(Param.getValue().getContato().getTelefone())));
+		
+	}
 
 	@Override
 	public void atualizarTabela() {
-		// TODO Auto-generated method stub
+		observableListClientes.clear();
+		for (Cliente cliente : listaClientes) {
+			observableListClientes.add(cliente);
+		}
+		
+		tblUsuario.getItems().setAll(observableListClientes);
+		tblUsuario.getSelectionModel().selectFirst();
 	}
 
 	@Override
 	public void setarCompos() {
-		// TODO Auto-generated method stub
+		try {
+		txtId.setText(Integer.toString(clienteSelecionado.getID()));
+		txtNome.setText(clienteSelecionado.getNome());
+		txtCpf.setText(format.cpfToExbir(clienteSelecionado.getCpf()));
+		txtLogradouro.setText(clienteSelecionado.getEndereco().getLogradouro());
+		txtCidade.setText(clienteSelecionado.getEndereco().getCidade());
+		txtNumero.setText(Integer.toString(clienteSelecionado.getEndereco().getNumero()));
+		txtEmail.setText(clienteSelecionado.getContato().getEmail());
+		txtTelefone.setText(format.telefoneToExibir(clienteSelecionado.getContato().getTelefone()));
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
