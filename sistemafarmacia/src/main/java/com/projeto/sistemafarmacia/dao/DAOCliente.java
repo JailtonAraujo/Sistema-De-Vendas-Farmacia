@@ -236,7 +236,8 @@ public List<Cliente> listarClientes(String search) {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(null, "Erro ao excluir cliente, causa: "+e.getMessage(), "ERRO!", 0);
+			JOptionPane.showMessageDialog(null, "ESTE CLIENTE ESTÁ ASSOCIADO Á ALGUNS PEDIDOS, PORTANDO, O MESMO NÃO PODE SER EXCLUIDO! ", "ERRO!", 0);
+			e.printStackTrace();
 		}finally {
 			SingleConnection.closeConection();
 		}

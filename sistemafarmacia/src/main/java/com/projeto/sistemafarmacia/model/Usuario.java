@@ -5,6 +5,17 @@ public class Usuario extends Pessoa {
 
 	private String login;
 	private String senha;
+	private boolean isAdmin;
+	
+	
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 
 	public String getLogin() {
 		return this.login;

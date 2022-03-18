@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -27,6 +28,8 @@ import javafx.stage.StageStyle;
 
 public class PrincipalController implements Initializable, InterfaceCRUD<Usuario> {
 
+	private DAOLogin daoLogin = new DAOLogin();
+	
 	@FXML
 	private Label UsuarioLabe;
 
@@ -34,7 +37,13 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 	private Label lblData;
 	
 	@FXML
+	private Label lblDivisao;
+	
+	@FXML
     private MenuItem opcaoSair;
+	
+	@FXML
+    private Menu menuUsuario;
 
 	LocalDate data = LocalDate.now();
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -77,6 +86,7 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		validarAdmin();
 		UsuarioLabe.setText(new DAOLogin().getUserLogado().getNome());
 		lblData.setText(data.format(formatter));
 		// TODO Auto-generated method stub
@@ -97,6 +107,16 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 			stage.show();
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		}
+	}
+	
+	public void validarAdmin() {
+		if(daoLogin.getUserLogado().isAdmin()) {
+			lblDivisao.setText("DIVISÃO: ADMINISTRADOR");
+			menuUsuario.setVisible(true);
+		}else {
+			lblDivisao.setText("DIVISÃO: FUNCIONARIO");
+			menuUsuario.setVisible(false);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.projeto.sistemafarmacia.util;
 
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import net.sf.jasperreports.view.JasperViewer;
 @SuppressWarnings({"unchecked","rawtypes"})
 public class reportUtil implements Serializable{
 	
-	public void imprimiRelatorio(List listaDeDados, String pathRelatorio) throws JRException {
+	public void imprimiRelatorio(List listaDeDados, InputStream pathRelatorio) throws JRException {
 		
 		
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listaDeDados);

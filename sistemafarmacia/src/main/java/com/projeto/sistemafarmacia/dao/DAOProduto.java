@@ -127,7 +127,7 @@ public class DAOProduto {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Causa: "+e.getMessage(), "ERRO AO EXCLUIR PRODUTO!", 0);
+			JOptionPane.showMessageDialog(null, "ESTE PRODUTO ESTA ASSOCIADO Á ALGUNS PEDIDOS, PORTANTO, NÃO PODE SER EXCLUIDO!", "ERRO AO EXCLUIR PRODUTO!", 0);
 		}finally {
 			SingleConnection.closeConection();
 		}

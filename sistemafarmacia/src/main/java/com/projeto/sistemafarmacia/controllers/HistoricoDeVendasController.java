@@ -29,6 +29,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -115,14 +116,17 @@ public class HistoricoDeVendasController implements Initializable {
 	private TextField txtBuscarPedido;
 	
 	@FXML
-    private JFXTextField txtIntervalo;
+    private DatePicker dataPickerDataFinal;
+
+    @FXML
+    private DatePicker dataPickerDataInicial;
 	
 	@FXML
     void actionImprimirRealtorio(ActionEvent event) {
 		if(!listaDePedidos.isEmpty() && listaDePedidos.size() > 1) {
 			try {
-				String pathRelatorio = new File("src\\main\\java\\com\\projeto\\sistemafarmacia\\relatorios\\rel-vendas.jasper").getAbsolutePath();
-			new reportUtil().imprimiRelatorio(listaDePedidos, pathRelatorio);
+				InputStream caminhoralatorio = this.getClass().getClassLoader().getResourceAsStream("relatorios/rel-vendas.jasper");
+			new reportUtil().imprimiRelatorio(listaDePedidos, caminhoralatorio);
 			}catch(JRException e) {
 				JOptionPane.showMessageDialog(null, "Erro ao imprimir Relatorio, Causa: "+e.getMessage(), "Erro!", 1);
 			}
@@ -130,15 +134,6 @@ public class HistoricoDeVendasController implements Initializable {
 			JOptionPane.showMessageDialog(null, "Relatorio Vazio!","ERRO!",1);
 		}
     }
-	
-	@FXML
-	void eventReleasedIntervalo(KeyEvent event) {
-		TextFieldFormatter formatter = new TextFieldFormatter();
-    	formatter.setMask("##/##/####-##/##/####");
-    	formatter.setCaracteresValidos("0123456789");
-    	formatter.setTf(txtIntervalo);
-    	formatter.formatter();
-	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -170,15 +165,15 @@ public class HistoricoDeVendasController implements Initializable {
 			filtro = "usuario.nome";
 		}
 		
-		String [] dataIntervalo = formatarIntervaloData(txtIntervalo.getText());
+		String [] dataIntervalo = {dataPickerDataInicial.getValue().toString(), dataPickerDataFinal.getValue().toString()};
 		String search = txtBuscarPedido.getText();
-
 
 		listaDePedidos = daoHistoricoDeVendas.BuscarPedidos(dataIntervalo, filtro,search );
 		AtualizarTblPedidos();
 		
 		}catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "Erro ao efetuar busca de pedidos, causa: "+e.getMessage()+"ERRO!", "",1);
+			JOptionPane.showMessageDialog(null, "O INTERVALO DE DATA INFORMADO NÃO É VÁLIDO!", "ERRO AO BUSCAR PEDIDOS!",1);
+			e.printStackTrace();
 		}
 		
 	}

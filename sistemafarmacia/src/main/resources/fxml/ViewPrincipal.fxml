@@ -40,6 +40,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#actionSobre" text="INFORMAÇÕES DO SOFTWARE" />
                      </items>
                   </Menu>
+                  <Menu fx:id="menuUsuario" mnemonicParsing="false" text="USUARIOS">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="CADASTRAR" />
+                    </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="MAIS...">
                      <items>
                         <MenuItem fx:id="opcaoSair" mnemonicParsing="false" onAction="#eventSair" text="SAIR" />
@@ -49,7 +54,7 @@
             </MenuBar>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="555.0" layoutY="686.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="CENTER" layoutY="717.0" prefHeight="69.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label fx:id="UsuarioLabe" alignment="CENTER" prefHeight="32.0" prefWidth="278.0" style="-fx-border-color: #000000; -fx-border-radius: 5; -fx-border-width: 1;" textAlignment="CENTER" textFill="#f20404">
                <font>
@@ -58,6 +63,17 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+            </Label>
+            <Label fx:id="lblDivisao" prefHeight="32.0" prefWidth="202.0" style="-fx-border-width: 1; -fx-border-color: #000000; -fx-border-radius: 5px;" text="DIVISÃO: " textFill="#da0a0a">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
             </Label>
             <Label fx:id="lblData" alignment="CENTER" prefHeight="32.0" prefWidth="134.0" style="-fx-border-color: #333333; -fx-border-radius: 5px;">
                <font>
