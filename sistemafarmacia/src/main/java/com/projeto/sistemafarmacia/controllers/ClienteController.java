@@ -107,6 +107,22 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 	}
 	
 	@FXML
+    void actionExcluirCliente(ActionEvent event) {
+		if(txtId.getText() != null && !txtId.getText().isEmpty()) {
+			
+			int opc = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir o cliente selecionado?", "ATENÇÃO!",0);
+			
+			if(opc == 0) {
+				if(daoCliente.excluircliente(clienteSelecionado)) {
+					JOptionPane.showMessageDialog(null, "Cliente Excluido com sucesso!");
+				}
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Nenhum cliente foi selecionado para exclusão!", "ERRO!",1);
+		}
+    }
+	
+	@FXML
     void onMouseClickTable(MouseEvent event) {
 		clienteSelecionado = listaClientes.get(tblUsuario.getSelectionModel().getSelectedIndex());
 		setarCompos();
@@ -182,6 +198,8 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 		FormatCadastrarExibir cadastrarExibir = new FormatCadastrarExibir();
 
 		String id = txtId.getText();
+		String idEndereco =  "0";
+		String idContato = "0";
 		String nome = txtNome.getText();
 		String cpf = txtCpf.getText();
 		String logradouro = txtLogradouro.getText();
@@ -194,14 +212,22 @@ public class ClienteController implements Initializable, InterfaceCRUD<Cliente> 
 
 		if (id == null || id.equalsIgnoreCase("") || id.isEmpty()) {
 			id = "0";
+			idContato = "0";
+			idEndereco = "0";		
+		}else {
+			idEndereco =  Integer.toString(clienteSelecionado.getEndereco().getID());
+			idContato = Integer.toString(clienteSelecionado.getContato().getID());
 		}
 		
 		if(ValidarCampo(dados)) {
 			
 			contato = new Contato(cadastrarExibir.telefoneToCadastrar(telefone), email);
+			contato.setID(Integer.parseInt(idContato));
 			endereco = new Endereco(logradouro, cidade, Integer.valueOf(numero));
+			endereco.setID(Integer.parseInt(idEndereco));
 			
 			cliente = new Cliente(nome, contato, endereco, cadastrarExibir.cpfToCadastrar(cpf));
+			cliente.setID(Integer.parseInt(id));
 			
 			return cliente;
 		}

@@ -81,14 +81,6 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </JFXButton>
-            <JFXButton id="btn-opc" fx:id="btnSair" buttonType="RAISED" onAction="#eventSair" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #4B0082; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="SAIR">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="30.0" />
-               </HBox.margin>
-            </JFXButton>
             <JFXButton id="btn-opc" fx:id="btnEditar1" buttonType="RAISED" onAction="#eventLimpar" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #6495ED; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="LIMPAR">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -97,12 +89,12 @@
                   <Insets left="110.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton id="btn-opc" fx:id="btnEditar" buttonType="RAISED" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #00FFFF; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="EDITAR">
+            <JFXButton id="btn-opc" fx:id="btnSair" buttonType="RAISED" onAction="#eventSair" prefHeight="47.0" prefWidth="140.0" style="-fx-border-color: #4B0082; -fx-border-width: 3;" stylesheets="@../styles/StyleUsuario.css" text="SAIR">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="30.0" />
                </HBox.margin>
             </JFXButton>
          </children>

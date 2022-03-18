@@ -98,7 +98,7 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	    @FXML
 	    void actionExcluirProduto(ActionEvent event) {
 	    	
-			if (produtoSelecionado.getIdTabela() > 0) {
+			if (txtId.getText() != null && !txtId.getText().isEmpty()) {
 
 				int opc = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR O PRODUTO SELECIONADO?",
 						"ATENÇÃO", 1);
@@ -227,6 +227,7 @@ public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	     txtId.setText("");
 	     txtNome.setText("");
 	     txtPreco.setText("");
+	     txtIdTable.setText("");
 		
 	}
 

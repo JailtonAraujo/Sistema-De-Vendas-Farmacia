@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.projeto.sistemafarmacia.model.Cliente;
 import com.projeto.sistemafarmacia.model.Contato;
 import com.projeto.sistemafarmacia.model.Endereco;
@@ -18,16 +20,45 @@ public class DAOCliente {
 	
 	
 	public boolean Insert (Cliente cliente){
-		
 		try {
+			PreparedStatement statement = null;
+			connection = SingleConnection.getConnection();
+			
+			if(cliente.getID() > 0) {
+				String sqlCliente = "update cliente set nome=?, cpf=? where ID =?";
+				String sqlContato = "update contato set email=?, telefone=? where ID = ?";
+				String sqlEndereco = "update endereco set logradouro=?, cidade=?, numero=? where id=?";
+				
+				statement = connection.prepareStatement(sqlCliente);
+				statement.setString(1, cliente.getNome());
+				statement.setLong(2, cliente.getCpf());
+				statement.setInt(3, cliente.getID());
+				
+				statement.executeUpdate();
+				
+				statement = connection.prepareStatement(sqlContato);
+				statement.setString(1, cliente.getContato().getEmail());
+				statement.setLong(2, cliente.getContato().getTelefone());
+				statement.setInt(3, cliente.getContato().getID());
+				
+				statement.executeUpdate();
+				
+				statement = connection.prepareStatement(sqlEndereco);
+				statement.setString(1, cliente.getEndereco().getLogradouro());
+				statement.setString(2, cliente.getEndereco().getCidade());
+				statement.setInt(3, cliente.getEndereco().getNumero());
+				statement.setInt(4, cliente.getEndereco().getID());
+				
+				statement.executeUpdate();
+				
+			}else {
 		
 		String sqlCliente = "insert into cliente (nome, cpf, idcontato, idendereco) values (?, ?, ?, ?)";
 		String sqlContato = "insert into contato (email, telefone) values (?, ?)";
 		String sqlEndereco = "insert into endereco (logradouro, cidade, numero) values (?, ?, ?)";
 		
-		connection = SingleConnection.getConnection();
 		
-		PreparedStatement statement = connection.prepareStatement(sqlContato, Statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(sqlContato, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, cliente.getContato().getEmail());
 			statement.setLong(2, cliente.getContato().getTelefone());
 		
@@ -55,20 +86,20 @@ public class DAOCliente {
 			statement.setInt(4, idendereco);
 			
 			statement.execute();
+			}
 			
 			connection.commit();
-			statement.close();
-			connection.close();
-			
+			statement.close();		
 			return true;
 		
 		
 		}catch(Exception ex) {
 			try {
 				connection.rollback();
-				connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+			}finally {
+				SingleConnection.closeConection();
 			}
 			
 			ex.printStackTrace();
@@ -172,5 +203,45 @@ public List<Cliente> listarClientes(String search) {
 		return null;
 	}
 
+	public boolean excluircliente(Cliente cliente) {
+		try {
+			connection = SingleConnection.getConnection();
+			PreparedStatement statement = null;
+			
+			String sqlDelCliente = "delete from cliente where ID = ?";
+			String sqlDelEndereco = "delete from endereco where id = ?";
+			String sqlDelContato = "delete from contato where ID = ?";
+			
+			statement = connection.prepareStatement(sqlDelCliente);
+			statement.setInt(1, cliente.getID());
+			
+			statement.executeUpdate();
+			
+			statement = connection.prepareStatement(sqlDelEndereco);
+			statement.setInt(1, cliente.getEndereco().getID());
+			
+			statement.executeUpdate();
+			
+			statement = connection.prepareStatement(sqlDelContato);
+			statement.setInt(1, cliente.getContato().getID());
+			
+			statement.executeUpdate();
+			
+			connection.commit();
+			statement.close();
+			return true;
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(null, "Erro ao excluir cliente, causa: "+e.getMessage(), "ERRO!", 0);
+		}finally {
+			SingleConnection.closeConection();
+		}
+		
+		return false;
+	}
 	
 }

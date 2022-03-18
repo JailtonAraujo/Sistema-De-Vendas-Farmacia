@@ -41,7 +41,7 @@ import net.sf.jasperreports.engine.JRException;
 
 public class HistoricoDeVendasController implements Initializable {
 
-	private List<Pedido> listaDePedidos;
+	private List<Pedido> listaDePedidos = new ArrayList<Pedido>();
 	private ObservableList<Pedido> observableListPedidos = FXCollections.observableArrayList();
 	private List<Produto> listItemPedidoProdutos = new ArrayList<Produto>();
 	private ObservableList<Produto> observableListItemPedidoProdutos = FXCollections.observableArrayList();
