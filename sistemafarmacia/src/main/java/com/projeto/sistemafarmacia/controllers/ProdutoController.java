@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
-import org.apache.commons.lang3.StringUtils;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -31,6 +30,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ProdutoController implements InterfaceCRUD<Produto>, Initializable{
 	
 	private DAOProduto daoProduto = new DAOProduto();

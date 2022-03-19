@@ -40,6 +40,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ClienteController implements Initializable, InterfaceCRUD<Cliente> {
 	
 	private DAOCliente daoCliente = new DAOCliente(); 
