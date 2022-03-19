@@ -1,11 +1,8 @@
 package com.projeto.sistemafarmacia.controllers;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,7 +17,6 @@ import com.projeto.sistemafarmacia.model.Pedido;
 import com.projeto.sistemafarmacia.model.Produto;
 import com.projeto.sistemafarmacia.model.itemPedido;
 import com.projeto.sistemafarmacia.util.FormatCadastrarExibir;
-import com.projeto.sistemafarmacia.util.TextFieldFormatter;
 import com.projeto.sistemafarmacia.util.reportUtil;
 
 import javafx.collections.FXCollections;
@@ -40,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class HistoricoDeVendasController implements Initializable {
 
 	private List<Pedido> listaDePedidos = new ArrayList<Pedido>();
@@ -247,18 +244,10 @@ public class HistoricoDeVendasController implements Initializable {
 		listBoxFiltro.add("CLIENTE");
 		listBoxFiltro.add("USUARIO");
 		
-		observalBoxFiltro =FXCollections.observableArrayList(listBoxFiltro);
+		observalBoxFiltro = FXCollections.observableArrayList(listBoxFiltro);
 		
 		boxFiltro.getItems().setAll(observalBoxFiltro);
 		boxFiltro.getSelectionModel().selectFirst();
 	}
 	
-	public String [] formatarIntervaloData(String intervalo) {
-		String [] dataTemp = intervalo.split("\\-");
-		
-		
-		String [] dataFormatada= {LocalDate.parse(dataTemp[0], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(),LocalDate.parse(dataTemp[1], DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()};
-		
-		return dataFormatada;
-	}
 }

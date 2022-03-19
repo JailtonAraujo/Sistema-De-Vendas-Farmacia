@@ -3,6 +3,9 @@ package com.projeto.sistemafarmacia.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -38,7 +41,7 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 	private ObservableList<Usuario> observableListUsuario = FXCollections.observableArrayList();
 	
 	@FXML
-    private JFXComboBox<?> boxDivisão;
+    private JFXComboBox<String> boxDivisão;
 
     @FXML
     private Button btnBusca;
@@ -129,8 +132,15 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
     @FXML
     void eventSalvar(ActionEvent event) {
-
-    }
+    	
+		if (ObterModelo() != null) {
+			if (daoUsuario.cadastrarUsuario(ObterModelo())) {
+				JOptionPane.showMessageDialog(null, "USUARIO SALVO COM SUCESSO!", "SUCESSO!", 1);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "DADOS INVALIDOS, VERIFIQUE-OS!", "ERRO!", 0);
+		}
+	}
 
     @FXML
     void onMouseClickTable(MouseEvent event) {
@@ -149,11 +159,39 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		montarColunas();
+		montarComboBoxDivisao();
 	}
 
 	@Override
 	public Usuario ObterModelo() {
-		// TODO Auto-generated method stub
+		String id = txtId.getText();
+		String nome = txtNome.getText();
+		String login = txtLogin.getText();
+		String senha = txtSenha.getText();
+		String setor = boxDivisão.getSelectionModel().getSelectedItem().toString();
+		
+		if(id == null || id.isBlank()) {
+			id = "0";
+		}
+		
+		String [] dados = {nome,login,senha};
+		
+		if(ValidarCampo(dados)) {
+			Usuario usuario = new Usuario();
+			boolean isAdmin = false;
+			usuario.setNome(nome);
+			usuario.setID(Integer.parseInt(id));
+			usuario.setLogin(login);
+			usuario.setSenha(senha);
+			
+			if(boxDivisão.getSelectionModel().getSelectedItem().toString().equalsIgnoreCase("ADMINISTRADOR")) {
+				isAdmin = true;
+			}else {
+				isAdmin = false;
+			}
+			
+			return usuario;
+		}
 		return null;
 	}
 
@@ -171,8 +209,14 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
 	@Override
 	public boolean ValidarCampo(String[] dados) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean validado = true;
+		for(int i = 0; i < dados.length;i++) {
+			if(dados[i] == null || dados[i].isEmpty() || dados[i].trim() == "") {
+				validado = false;
+				break;
+			}
+		}
+		return validado;
 	}
 
 	@Override
@@ -198,6 +242,16 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 		columnNomeTblUsuario.setCellValueFactory(new PropertyValueFactory("nome"));
 		columnIdTblUsuario.setCellValueFactory(new PropertyValueFactory("ID"));
 		
+	}
+	
+	public void montarComboBoxDivisao() {
+		List<String> listaDivisao = new ArrayList<String>();
+		listaDivisao.add("FUNCIONARIO");
+		listaDivisao.add("ADMINISTRADOR");
+		ObservableList<String> observableListDivisao = FXCollections.observableArrayList(listaDivisao);
+		boxDivisão.getItems().setAll(observableListDivisao);
+		
+		boxDivisão.getSelectionModel().selectFirst();
 	}
 
 }

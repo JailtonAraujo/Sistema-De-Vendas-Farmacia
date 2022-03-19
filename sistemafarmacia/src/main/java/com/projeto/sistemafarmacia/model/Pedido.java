@@ -14,6 +14,7 @@ public class Pedido {
 	private Cliente cliente;
 	private Usuario usuario;
 	
+	List<itemPedido> listaDeItens;
 	
 	public Pedido() {}
 	
@@ -27,8 +28,6 @@ public class Pedido {
 		this.usuario = usuario;
 		this.listaDeItens = listaDeItens;
 	}
-
-	List<itemPedido> listaDeItens;
 
 	public int getIdPedido() {
 		return idPedido;
