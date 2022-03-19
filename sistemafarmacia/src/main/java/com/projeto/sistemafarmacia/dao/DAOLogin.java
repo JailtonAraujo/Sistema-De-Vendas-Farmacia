@@ -48,6 +48,7 @@ public class DAOLogin {
 
 	}
 
+	@SuppressWarnings("static-access")
 	public Usuario getUserLogado() {
 		return this.userLogado;
 	}

@@ -43,6 +43,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CadastroDeVendasController implements Initializable, InterfaceCRUD<Produto>{
 
 	private DAOProduto daoProduto = new DAOProduto();

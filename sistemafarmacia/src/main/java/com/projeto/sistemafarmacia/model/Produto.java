@@ -1,9 +1,8 @@
 package com.projeto.sistemafarmacia.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Produto implements Serializable{
+public class Produto{
 	
 	private long idProduto;
 	private int idTabela;

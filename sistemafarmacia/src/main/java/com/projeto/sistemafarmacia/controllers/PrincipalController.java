@@ -44,6 +44,14 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 	
 	@FXML
     private Menu menuUsuario;
+	
+	@FXML
+    private MenuItem menuItemCadastrarUsuario;
+	
+	@FXML
+    void eventShowUsuario(ActionEvent event) {
+		ShowView("/fxml/ViewUsuario.fxml", "USUARIO");
+    }
 
 	LocalDate data = LocalDate.now();
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -53,22 +61,22 @@ public class PrincipalController implements Initializable, InterfaceCRUD<Usuario
 
 	@FXML
 	void eventCadastrar(ActionEvent event) {
-		this.ShowView("/fxml/ViewCliente.fxml", "Usuário");
+		this.ShowView("/fxml/ViewCliente.fxml", "CLIENTE");
 	}
 
 	@FXML
 	void eventProduto(ActionEvent event) {
-		this.ShowView("/fxml/ViewProdutos.fxml", "Produtos");
+		this.ShowView("/fxml/ViewProdutos.fxml", "PRODUTOS");
 	}
 
 	@FXML
 	void actionLancamentoDeVendas(ActionEvent event) {
-		this.ShowView("/fxml/ViewCadastroDeVendas.fxml", "Lançamento de Vendas");
+		this.ShowView("/fxml/ViewCadastroDeVendas.fxml", "VENDAS");
 	}
 
 	@FXML
 	void actionSobre(ActionEvent event) {
-		this.ShowView("/fxml/ViewSobre.fxml", "Sobre");
+		this.ShowView("/fxml/ViewSobre.fxml", "SOBRE");
 	}
 	
 

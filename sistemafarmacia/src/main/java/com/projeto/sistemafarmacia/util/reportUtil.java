@@ -12,7 +12,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
-@SuppressWarnings({"unchecked","rawtypes"})
+@SuppressWarnings({"unchecked","rawtypes", "serial"})
 public class reportUtil implements Serializable{
 	
 	public void imprimiRelatorio(List listaDeDados, InputStream pathRelatorio) throws JRException {

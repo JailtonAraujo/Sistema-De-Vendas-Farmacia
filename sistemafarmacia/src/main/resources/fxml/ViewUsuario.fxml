@@ -113,11 +113,9 @@
       </HBox>
       <TableView fx:id="tblUsuario" layoutX="1.0" layoutY="389.0" onMouseClicked="#onMouseClickTable" prefHeight="321.0" prefWidth="1161.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="440.0">
         <columns>
-          <TableColumn fx:id="columnIdTblUsuario" prefWidth="123.0" text="ID" />
-          <TableColumn fx:id="columnNomeTblUsuario" prefWidth="337.0" text="NOME" />
-            <TableColumn fx:id="columnCpfTblCpf" prefWidth="236.0" text="CPF" />
-            <TableColumn fx:id="columnLogradouroTblUsuario" prefWidth="232.0" text="LOGRADOURO" />
-            <TableColumn fx:id="columnTelefoneTblusuario" prefWidth="232.0" text="TELEFONE" />
+          <TableColumn fx:id="columnIdTblUsuario" prefWidth="190.0" text="ID" />
+          <TableColumn fx:id="columnNomeTblUsuario" prefWidth="470.0" text="NOME" />
+            <TableColumn fx:id="columnLogin" prefWidth="502.0" text="LOGIN" />
         </columns>
       </TableView>
       <HBox id="back-page" alignment="CENTER" layoutY="395.0" prefHeight="47.0" prefWidth="1163.0" stylesheets="@../styles/StyleUsuario.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

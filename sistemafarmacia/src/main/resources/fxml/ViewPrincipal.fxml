@@ -42,7 +42,7 @@
                   </Menu>
                   <Menu fx:id="menuUsuario" mnemonicParsing="false" text="USUARIOS">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="CADASTRAR" />
+                      <MenuItem fx:id="menuItemCadastrarUsuario" mnemonicParsing="false" onAction="#eventShowUsuario" text="CADASTRAR" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="MAIS...">

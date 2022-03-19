@@ -3,13 +3,20 @@ package com.projeto.sistemafarmacia.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
+import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.projeto.sistemafarmacia.Interfaces.InterfaceCRUD;
+import com.projeto.sistemafarmacia.dao.DAOUsuario;
 import com.projeto.sistemafarmacia.model.Usuario;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,11 +24,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+@SuppressWarnings({ "rawtypes", "unchecked","unused" })
 public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
+	private DAOUsuario daoUsuario = new DAOUsuario();
+	private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	private ObservableList<Usuario> observableListUsuario = FXCollections.observableArrayList();
 	
 	@FXML
     private JFXComboBox<?> boxDivisão;
@@ -42,22 +56,19 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
     private JFXButton btnSalvar;
 
     @FXML
-    private TableColumn<?, ?> columnCpfTblCpf;
+    private TableColumn<Usuario, Long> columnLogin;
 
     @FXML
-    private TableColumn<?, ?> columnIdTblUsuario;
+    private TableColumn<Usuario, Integer> columnIdTblUsuario;
 
     @FXML
-    private TableColumn<?, ?> columnLogradouroTblUsuario;
+    private TableColumn<String, String> columnDivisaoTblusuario;
 
     @FXML
-    private TableColumn<?, ?> columnNomeTblUsuario;
+    private TableColumn<Usuario, String> columnNomeTblUsuario;
 
     @FXML
-    private TableColumn<?, ?> columnTelefoneTblusuario;
-
-    @FXML
-    private TableView<?> tblUsuario;
+    private TableView<Usuario> tblUsuario;
 
     @FXML
     private TextField txtBusca;
@@ -91,7 +102,8 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
     @FXML
     void actionBtnBuscar(ActionEvent event) {
-
+    	 listaUsuarios =  daoUsuario.buscarUsuario(txtBusca.getText());
+    	atualizarTabela();
     }
 
     @FXML
@@ -111,7 +123,8 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
     @FXML
     void eventSair(ActionEvent event) {
-
+    	Stage stage = (Stage) btnSair.getScene().getWindow();
+		stage.close();
     }
 
     @FXML
@@ -126,13 +139,16 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
     @FXML
     void releasedBuscarCliente(KeyEvent event) {
-
+    	if(event.getCode() == KeyCode.ENTER) {
+    		daoUsuario.buscarUsuario(txtBusca.getText());
+    		atualizarTabela();
+    	}
     }
 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		montarColunas();
 	}
 
 	@Override
@@ -161,13 +177,26 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
 	@Override
 	public void atualizarTabela() {
-		// TODO Auto-generated method stub
+		observableListUsuario.clear();
+		for(Usuario usuario : listaUsuarios) {
+			observableListUsuario.add(usuario);
+		}
+		
+		tblUsuario.getItems().setAll(observableListUsuario);
+		tblUsuario.getSelectionModel().selectFirst();
 		
 	}
 
 	@Override
 	public void setarCompos() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void montarColunas() {
+		columnLogin.setCellValueFactory(new PropertyValueFactory("login"));
+		columnNomeTblUsuario.setCellValueFactory(new PropertyValueFactory("nome"));
+		columnIdTblUsuario.setCellValueFactory(new PropertyValueFactory("ID"));
 		
 	}
 
