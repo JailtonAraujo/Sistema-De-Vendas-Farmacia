@@ -71,7 +71,7 @@ public class DAOUsuario {
 				statement.setString(4, usuario.getSenha());
 				statement.setInt(5, usuario.getID());
 				
-				statement.execute();
+				statement.executeUpdate();
 			}else {
 			
 			String sql = "insert into usuario (nome, isAdmin, login, senha) values (?, ?, ?, ?)";
@@ -105,6 +105,29 @@ public class DAOUsuario {
 	}
 	
 	public boolean excluirUsuario(int idUsuario) {
+		try {
+			connection = SingleConnection.getConnection();
+			String sql = "delete from usuario where ID = ?";
+			
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, idUsuario);
+			
+			statement.executeUpdate();
+			connection.commit();
+			statement.close();
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "ESTE USUARIO ESTA RELEACIONADO A ALGUMAS VENDAS, POR ESTE MOTIVO NÃO É POSSIVEL EXCLUIR O MESMO!","ERRO AO EXCLUIR USUARIO!",0);
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			SingleConnection.closeConection();
+		}
 		return false;
 	}
 }

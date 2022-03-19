@@ -93,13 +93,27 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
     }
 
     @FXML
-    void actionExcluirUsuario(ActionEvent event) {
+	void actionExcluirUsuario(ActionEvent event) {
 
-    }
+		if (txtId.getText() != null && !txtId.getText().isEmpty() && txtId.getText().trim() != "") {
+			int opc = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR O USUARIO SELECIONADO!",
+					"ATENÇÃO", 2);
+			if (opc == 0) {
+
+				if (daoUsuario.excluirUsuario(Integer.parseInt(txtId.getText()))) {
+					JOptionPane.showMessageDialog(null, "USUARIO EXLUIDO COM SUCESSO!", "SUCESSO!", 1);
+					LimparCampos();
+				}
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "NENHUM USUARIO FOI SELECIONADO!", "ERRO AO EXCLUIR USUARIO!", 0);
+		}
+
+	}
 
     @FXML
     void eventLimpar(ActionEvent event) {
-
+    	LimparCampos();
     }
 
     @FXML
@@ -119,6 +133,7 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 		if (ObterModelo() != null) {
 			if (daoUsuario.cadastrarUsuario(ObterModelo())) {
 				JOptionPane.showMessageDialog(null, "USUARIO SALVO COM SUCESSO!", "SUCESSO!", 1);
+				LimparCampos();
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "DADOS INVALIDOS, VERIFIQUE-OS!", "ERRO!", 0);
