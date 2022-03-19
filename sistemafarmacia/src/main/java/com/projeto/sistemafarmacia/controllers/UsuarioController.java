@@ -39,6 +39,7 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 	private DAOUsuario daoUsuario = new DAOUsuario();
 	private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 	private ObservableList<Usuario> observableListUsuario = FXCollections.observableArrayList();
+	private Usuario usuarioSelecionado = new Usuario();
 	
 	@FXML
     private JFXComboBox<String> boxDivisão;
@@ -65,9 +66,6 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
     private TableColumn<Usuario, Integer> columnIdTblUsuario;
 
     @FXML
-    private TableColumn<String, String> columnDivisaoTblusuario;
-
-    @FXML
     private TableColumn<Usuario, String> columnNomeTblUsuario;
 
     @FXML
@@ -77,31 +75,16 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
     private TextField txtBusca;
 
     @FXML
-    private JFXTextField txtCidade;
-
-    @FXML
-    private JFXTextField txtEmail;
-
-    @FXML
     private JFXTextField txtId;
 
     @FXML
     private JFXTextField txtLogin;
 
     @FXML
-    private JFXTextField txtLogradouro;
-
-    @FXML
     private JFXTextField txtNome;
 
     @FXML
-    private JFXTextField txtNumero;
-
-    @FXML
     private JFXTextField txtSenha;
-
-    @FXML
-    private JFXTextField txtTelefone;
 
     @FXML
     void actionBtnBuscar(ActionEvent event) {
@@ -144,7 +127,8 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
     @FXML
     void onMouseClickTable(MouseEvent event) {
-
+    	usuarioSelecionado = listaUsuarios.get(tblUsuario.getSelectionModel().getSelectedIndex());
+    	setarCompos();
     }
 
     @FXML
@@ -203,7 +187,10 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
 	@Override
 	public void LimparCampos() {
-		// TODO Auto-generated method stub
+		txtId.setText("");
+		txtLogin.setText("");
+		txtNome.setText("");
+		txtSenha.setText("");
 		
 	}
 
@@ -233,7 +220,10 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 
 	@Override
 	public void setarCompos() {
-		// TODO Auto-generated method stub
+		txtId.setText(Integer.toString(usuarioSelecionado.getID()));
+		txtLogin.setText(usuarioSelecionado.getLogin());
+		txtNome.setText(usuarioSelecionado.getNome());
+		txtSenha.setText(usuarioSelecionado.getSenha());
 		
 	}
 	

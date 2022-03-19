@@ -58,15 +58,32 @@ public class DAOUsuario {
 	public boolean cadastrarUsuario(Usuario usuario) {
 		try {
 			connection = SingleConnection.getConnection();
+			PreparedStatement statement = null;
+			
+			if(usuario.getID() > 0) {
+				
+				String sql = "update usuario set nome=?, isAdmin=?, login=?, senha=? where ID = ?";
+				
+				statement = connection.prepareStatement(sql);
+				statement.setString(1, usuario.getNome());
+				statement.setBoolean(2, usuario.isAdmin());
+				statement.setString(3, usuario.getLogin());
+				statement.setString(4, usuario.getSenha());
+				statement.setInt(5, usuario.getID());
+				
+				statement.execute();
+			}else {
+			
 			String sql = "insert into usuario (nome, isAdmin, login, senha) values (?, ?, ?, ?)";
 			
-			PreparedStatement statement = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql);
 			statement.setString(1, usuario.getNome());
 			statement.setBoolean(2, usuario.isAdmin());
 			statement.setString(3, usuario.getLogin());
 			statement.setString(4, usuario.getSenha());
 			
 			statement.execute();
+			}
 			connection.commit();
 			statement.close();
 			
@@ -84,6 +101,10 @@ public class DAOUsuario {
 			SingleConnection.closeConection();
 		}
 		
+		return false;
+	}
+	
+	public boolean excluirUsuario(int idUsuario) {
 		return false;
 	}
 }
