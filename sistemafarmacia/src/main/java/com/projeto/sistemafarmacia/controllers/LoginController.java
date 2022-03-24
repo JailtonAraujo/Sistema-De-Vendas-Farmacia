@@ -82,7 +82,7 @@ public class LoginController implements Initializable, InterfaceCRUD<Usuario> {
 				
 				this.ShowView("/fxml/ViewPrincipal.fxml", "TELA PRINCIPAL");
 			}else {
-				this.lblMsg.setText("NENHUM USUARIO ENCONTRADO!");
+				this.lblMsg.setText("USUARIO OU SENHA INVALIDOS, CONFIRA-OS!");
 			}
 		}
 	}
