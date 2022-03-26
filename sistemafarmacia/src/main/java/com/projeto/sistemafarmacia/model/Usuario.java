@@ -10,7 +10,7 @@ public class Usuario extends Pessoa {
 	
 
 	public boolean isAdmin() {
-		return isAdmin;
+		return this.isAdmin;
 	}
 
 	public void setAdmin(boolean isAdmin) {

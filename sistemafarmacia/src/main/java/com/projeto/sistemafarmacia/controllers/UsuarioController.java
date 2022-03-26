@@ -189,6 +189,7 @@ public class UsuarioController implements Initializable, InterfaceCRUD<Usuario>{
 				isAdmin = false;
 			}
 			
+			usuario.setAdmin(isAdmin);
 			return usuario;
 		}
 		return null;
